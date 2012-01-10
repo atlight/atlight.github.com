@@ -1,0 +1,159 @@
+﻿# For the Common Good
+# Local wiki data for French Wikipedia
+
+# After modifying this file, you must import it into FtCG again to see the changes.
+
+
+# This should be the web address of your wiki, without ".org"
+LocalDomain=fr.wikipedia
+
+# Three preset categories to appear at the top of the window
+# If you don't have three, just remove the unneeded ones
+Category1=Images pour Commons
+DefaultCategory=1
+
+# The name of the "Category" namespace on your local wiki, without the colon
+# (since the English name "Category" works on all wikis, you don't need to include
+# it here - FtCG handles it)
+CategoryNamespace=Catégorie
+
+# The local name for the "now Commons" template, indicating that the local copy of
+# an image should be deleted after transfer
+NowCommonsTag=Image sur Commons
+
+
+# IMPORTANT: All entries from here onwards are treated as regular expressions.
+# For normal text entry, this should not be a problem, but when using
+# symbols like ( ) [ ] ? * + | etc., please prefix with a backslash: \( \[ etc.
+
+# Local equivalents of the {{information}} template and its parameters
+# (put the local name SECOND, e.g. Information=Ergojduhd)
+Information=Information
+Description=Description
+Date=Date
+Source=Source
+Author=Auteur
+Permission=Permission
+Other_versions=autres_versions
+
+# Section headings in use on the local wiki
+# (put the local name SECOND, e.g. Summary=Quofkokvej)
+Summary=Description
+Licensing=Licence|Publié sous licence\(s\)
+
+# The regular expression used to detect "Copy to Commons" tags
+# This one is for English Wikipedia
+CopyToCommonsRegex={{(Pour ?Commons|Image pour Commons)[^}]*}}\n?
+
+
+
+# Potential problems - conditions which may prevent or affect transfer (like deletion templates)
+
+# Notes: - Use IfContains= to search for a string of plain text (case-insensitive)
+#        - Use IfRegex= to match against a regex (case-insensitive)
+# These should be listed in order of importance - most "problematic" first.
+
+[PotentialProblem]
+IfContains={{Suppression Immédiate
+Message=Le fichier est marqué pour la suppresion immédiate.
+
+# ... put as many potential problem sections as needed
+
+
+# Replacements to carry out
+
+# LookFor is a regular expression; ReplaceWith is a "replacement pattern"
+# where $n is the nth "capture" of the regex; for help,
+# visit MSDN or ask User:This, that and the other
+
+# %%OriginalUploader%% and
+# %%InterwikiLinkPrefix%% are special variables supplied by FtCG
+
+[Replacement]
+LookFor={{Art Libre([^\}]*)}}
+ReplaceWith={{FAL$1}}
+
+[Replacement]
+LookFor={{CC-BY-1.0([^\}]*)}}
+ReplaceWith={{Cc-by$1}}
+
+[Replacement]
+LookFor={{CC-BY-2.0([^\}]*)}}
+ReplaceWith={{Cc-by-2.0$1}}
+
+[Replacement]
+LookFor={{CC-BY-2.5([^\}]*)}}
+ReplaceWith={{Cc-by-2.5$1}}
+
+[Replacement]
+LookFor={{CC-BY-3.0([^\}]*)}}
+ReplaceWith={{Cc-by-3.0$1}}
+
+[Replacement]
+LookFor={{CC-BY-SA-1.0([^\}]*)}}
+ReplaceWith={{Cc-by-sa$1}}
+
+[Replacement]
+LookFor={{CC-BY-SA-2.0([^\}]*)}}
+ReplaceWith={{Cc-by-sa-2.0$1}}
+
+[Replacement]
+LookFor={{CC-BY-SA-2.0[ _]FR([^\}]*)}}
+ReplaceWith={{Cc-by-sa-2.0-fr$1}}
+
+[Replacement]
+LookFor={{CC-BY-SA-2.5([^\}]*)}}
+ReplaceWith={{Cc-by-sa-2.5$1}}
+
+[Replacement]
+LookFor={{CC-BY-SA-2.5,2.0,1.0([^\}]*)}}
+ReplaceWith={{Cc-by-sa-2.5,2.0,1.0$1}}
+
+[Replacement]
+LookFor={{CC-BY-SA-3.0([^\}]*)}}
+ReplaceWith={{Cc-by-sa-3.0$1}}
+
+[Replacement]
+LookFor={{CC-BY-SA-3.0,2.5,2.0,1.0([^\}]*)}}
+ReplaceWith={{Cc-by-sa-3.0,2.5,2.0,1.0$1}}
+
+[Replacement]
+LookFor={{CC-zero([^\}]*)}}
+ReplaceWith={{Cc-zero$1}}
+
+[Replacement]
+LookFor={{Document domaine public([^\}]*)}}
+ReplaceWith={{PD-old$1}}
+
+[Replacement]
+LookFor={{Domaine public expiré([^\}]*)}}
+ReplaceWith={{PD-old$1}}
+
+[Replacement]
+LookFor={{Domaine public inéligible([^\}]*)}}
+ReplaceWith={{PD-ineligible$1}}
+
+# ... put as many replacement sections as needed
+
+
+# Replacements of self-license tags, like PD-self, GFDL-self
+
+# These use the same format as "Replacements" above
+
+[SelfLicenseReplacement]
+LookFor={{Domaine public perso([^\}]*)}}
+ReplaceWith={{PD-user|%%OriginalUploader%%|fr}}
+
+[SelfLicenseReplacement]
+LookFor={{Domaine public par auteur([^\}]*)}}
+ReplaceWith={{PD-author|%%OriginalUploader%%|fr}}
+
+[SelfLicenseReplacement]
+LookFor={{GPL([^\}]*)}}
+ReplaceWith={{GPL|%%OriginalUploader%%$1}}
+
+[SelfLicenseReplacement]
+LookFor={{GFDL([^\}]*)}}
+ReplaceWith={{GFDL-user|%%OriginalUploader%%|fr$1}}
+
+# ... put as many as needed
