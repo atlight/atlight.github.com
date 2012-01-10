@@ -1,0 +1,99 @@
+﻿# For the Common Good
+# Local wiki data for Korean Wikipedia
+
+# After modifying this file, you must import it into FtCG again to see the changes.
+
+
+# This should be the web address of your wiki, without ".org"
+LocalDomain=ko.wikipedia
+
+# Three preset categories to appear at the top of the window
+# If you don't have three, just remove the unneeded ones
+Category1=위키미디어 공용으로 이동이 필요한 자료
+DefaultCategory=1
+
+# The name of the "Category" namespace on your local wiki, without the colon
+# (since the English name "Category" works on all wikis, you don't need to include
+# it here - FtCG handles it)
+CategoryNamespace=분류
+
+# The local name for the "now Commons" template, indicating that the local copy of
+# an image should be deleted after transfer
+NowCommonsTag=now Commons
+
+# IMPORTANT: All entries from here onwards are treated as regular expressions.
+# For normal text entry, this should not be a problem, but when using
+# symbols like ( ) [ ] ? * + | etc., please prefix with a backslash: \( \[ etc.
+
+# Local equivalents of the {{information}} template and its parameters
+# (put the local name SECOND, e.g. Information=Ergojduhd)
+Information=라이선스_갱신_알림
+Description=설명
+Date=날짜
+Source=출처
+Author=만든이
+Permission=저작권
+Other_versions=기타
+
+# Section headings in use on the local wiki
+# (put the local name SECOND, e.g. Summary=Quofkokvej)
+Summary=파일의 설명
+Licensing=저작권
+
+# The regular expression used to detect "Copy to Commons" tags
+# This one is for English Wikipedia
+CopyToCommonsRegex={{위키미디어 공용으로 이동 필요 편집하기}}\n?
+
+
+# If you aren't technically confident, stop here and delete everything from here to the end
+# (FtCG will still work!)
+
+
+
+# Potential problems - conditions which may prevent or affect transfer (like deletion templates)
+
+# Notes: - Use IfContains= to search for a string of plain text (case-insensitive)
+#        - Use IfRegex= to match against a regex (case-insensitive)
+# These should be listed in order of importance - most "problematic" first.
+
+[PotentialProblem]
+IfContains={{삭제 신청
+Message=이 틀에 삭제가 신청되었습니다.
+
+# ... put as many potential problem sections as needed
+
+
+# Replacements to carry out
+
+# LookFor is a regular expression; ReplaceWith is a "replacement pattern"
+# where $n is the nth "capture" of the regex; for help,
+# visit MSDN or ask User:This, that and the other
+
+# %%OriginalUploader%% and
+# %%InterwikiLinkPrefix%% are special variables supplied by FtCG
+
+[Replacement]
+LookFor={{orphan image.*}}\n?
+ReplaceWith=
+
+
+# ... put as many replacement sections as needed
+
+
+# Replacements of self-license tags, like PD-self, GFDL-self
+
+# These use the same format as "Replacements" above
+
+[SelfLicenseReplacement]
+LookFor={{PD-self([^\}]*)}}
+ReplaceWith={{PD-user|%%OriginalUploader%%|en}}
+
+[SelfLicenseReplacement]
+LookFor={{GFDL-self([^\}]*)}}
+ReplaceWith={{GFDL-user|%%OriginalUploader%%|en$1}}
+
+[SelfLicenseReplacement]
+LookFor={{self([^\}]*)}}
+ReplaceWith={{self$1|author=[[%%InterwikiLinkPrefix%%:%%OriginalUploader%%|]]}}
+
+# ... put as many as needed
