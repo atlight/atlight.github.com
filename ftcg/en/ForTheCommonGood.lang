@@ -12,9 +12,6 @@ Go_Button=&Go
 RandomFile_Button=&Random file
 # LOCALIZATION NOTE: this should have the same access key as "RandomFile_Button"
 NextFileInList_Button=Next file f&rom list
-CopyToWikimediaCommons_Option=Category:Copy to Wikimedia Commons
-CopyToWikimediaCommonsBotAssessed_Option=Category:Copy to Wikimedia Commons (bot-assessed)
-MoveToCommonsPriority_Option=Category:Move to Commons Priority Candidates
 OtherSource_Option=&Other source...
 Settings_Button=&Settings...
 FilePageOnLocalWiki_TextBox_Format=File description &page on {0}

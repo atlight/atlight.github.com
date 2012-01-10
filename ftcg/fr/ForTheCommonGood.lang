@@ -18,9 +18,6 @@ Go_Button=&Aller
 RandomFile_Button=Fichie&r au hasard
 # LOCALIZATION NOTE: this should have the same access key as "RandomFile_Button"
 NextFileInList_Button=Fichie&r suivant
-CopyToWikimediaCommons_Option=XXCategory:Copy to Wikimedia Commons
-CopyToWikimediaCommonsBotAssessed_Option=XXCategory:Copy to Wikimedia Commons (bot-assessed)
-MoveToCommonsPriority_Option=XXCategory:Move to Commons Priority Candidates
 OtherSource_Option=Ch&oisir la source...
 Settings_Button=&Préfs...
 FilePageOnLocalWiki_TextBox_Format=&Page de description du fichier sur {0}
