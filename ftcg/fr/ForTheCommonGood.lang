@@ -130,6 +130,7 @@ Close_Button=Fermer
 Welcome1=Bienvenue à For the Common Good.
 # LOCALIZATION NOTE: do not translate "Base64"
 Welcome2=The next dialog will ask for your wiki login credentials. If you choose to save them to disk, your wiki password will be stored not in cleartext, but in the Base64 encoding (no security at all!). Be aware of this.
+NowCommonsPotentialProblem=The file is tagged with {{now Commons}}, so it has probably already been transferred.
 ChangeIfNotOwnWork=change this if not own work
 Loading=Chargeant...
 AlreadyCommons=File is already on Commons; can't do anything
