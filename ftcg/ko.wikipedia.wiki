@@ -72,10 +72,6 @@ Message=이 틀에 삭제가 신청되었습니다.
 # %%OriginalUploader%% and
 # %%InterwikiLinkPrefix%% are special variables supplied by FtCG
 
-[Replacement]
-LookFor={{orphan image.*}}\n?
-ReplaceWith=
-
 
 # ... put as many replacement sections as needed
 
