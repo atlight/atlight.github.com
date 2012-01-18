@@ -88,6 +88,7 @@ LocalWikiDataHint_Label=You can load different datasets that allow For the Commo
 LocalWikiDataLoad_Button=Import...
 LocalWikiDataReset_Button=Reset
 LocalWikiDataCurrent_Label=Currently using:
+UseHttps_CheckBox=Use HTTPS (secure connection)
 
 # "About box" area of Settings window
 Version_Format=Version {0}
@@ -119,6 +120,8 @@ Name_Column=Name
 Value_Column=Value
 # LOCALIZATION NOTE: "close" is a verb here
 Close_Button=Close
+EXIFFailedNotice=Notice
+EXIFFailedMessage=Failed to display some metadata.
 
 # Messages (error, etc.)
 Welcome1=Welcome to For the Common Good.

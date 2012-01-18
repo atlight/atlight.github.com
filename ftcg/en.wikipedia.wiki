@@ -19,7 +19,7 @@ Author=Author
 Permission=Permission
 Other_versions=Other_versions
 
-Summary=Summary
+Summary=Summary|Description
 Licensing=Licensing:?
 
 CategoryNamespace=Category
