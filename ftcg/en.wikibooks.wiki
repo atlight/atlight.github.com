@@ -1,0 +1,81 @@
+﻿# For the Common Good
+# Local wiki data for English Wikibooks
+
+LocalDomain=en.wikibooks
+
+Category1=Copy to Wikimedia Commons
+Category2=Creative Commons Attribution-ShareAlike images
+DefaultCategory=1
+
+NowCommonsTag=Now Commons
+
+Information=Information
+Description=Description
+Date=Date
+Source=Source
+Author=Author
+Permission=Permission
+other_versions=Other_versions
+
+Summary=Summary|Description|Summary:
+Licensing=Licensing|License|Permissions|Licensing:
+
+CategoryNamespace=Category
+
+CopyToCommonsRegex={{(mtc|(copy |move )?to ?commons|move to wikimedia commons|copy to wikimedia commons)[^}]*}}\n?
+
+[PotentialProblem]
+IfContains={{no license
+Message=The file is missing a license.
+
+[PotentialProblem]
+IfContains={{no source
+Message=The file is missing a source.
+
+[PotentialProblem]
+IfContains={{GFDL-presumed
+Message=The intended licensing for this file is not clear.   Determine whether GFDL is the correct license.
+
+[PotentialProblem]
+IfRegex={{(delete|speedy)
+Message=The file appears to be tagged for speedy deletion.
+
+[PotentialProblem]
+IfContains={{rfd
+Message=The file appears to be nominated for deletion. Check the deletion discussion at RFD before transferring.
+
+[PotentialProblem]
+IfContains={{non-free
+Message=The file appears to be non-free. Commons cannot accept non-free files.
+
+[PotentialProblem]
+IfRegex={{do not (copy|move) to commons
+Message=The file is tagged with {{do not move to Commons}}.
+
+[PotentialProblem]
+IfRegex={{(keep ?local|nocommons)
+Message=The file is tagged with {{keep local}} - do not delete the local file afterwards.
+
+[Replacement]
+LookFor={{GFDL-1.1-plus([^\}]*)}}
+ReplaceWith={{GFDL-1.1,1.2,1.3}}
+
+[Replacement]
+LookFor={{PD-user([^\}]*)}}
+ReplaceWith={{PD-user-w|project=wikibooks|language=en|user=%%OriginalUploader%%}}
+
+[Replacement]
+LookFor== *I .*created this (image|work) entirely by myself.?
+ReplaceWith== {{own}}
+
+[SelfLicenseReplacement]
+LookFor={{PD-self([^\}]*)}}
+ReplaceWith={{PD-user-w|project=wikibooks|language=en|user=%%OriginalUploader%%}}
+
+[SelfLicenseReplacement]
+LookFor={{GFDL-self([^\}]*)}}
+ReplaceWith={{GFDL-user|%%OriginalUploader%%|b$1}}
+
+[SelfLicenseReplacement]
+LookFor={{self([^\}]*)}}
+ReplaceWith={{self$1|author=[[%%InterwikiLinkPrefix%%:%%OriginalUploader%%|]]}}
