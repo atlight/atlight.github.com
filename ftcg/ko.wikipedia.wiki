@@ -21,6 +21,11 @@ CategoryNamespace=분류
 # an image should be deleted after transfer
 NowCommonsTag=now Commons
 
+# The deletion summary used when deleting a file after transfer (option available
+# to admins only) - link to a relevant deletion policy if possible
+NowCommonsDeletionSummary=위키미디어 공용으로 이동됨
+
+
 # IMPORTANT: All entries from here onwards are treated as regular expressions.
 # For normal text entry, this should not be a problem, but when using
 # symbols like ( ) [ ] ? * + | etc., please prefix with a backslash: \( \[ etc.

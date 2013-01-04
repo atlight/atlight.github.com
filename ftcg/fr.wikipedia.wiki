@@ -21,6 +21,10 @@ CategoryNamespace=Catégorie
 # an image should be deleted after transfer
 NowCommonsTag=Image sur Commons
 
+# The deletion summary used when deleting a file after transfer (option available
+# to admins only) - link to a relevant deletion policy if possible
+NowCommonsDeletionSummary=Image présente sur Commons
+
 
 # IMPORTANT: All entries from here onwards are treated as regular expressions.
 # For normal text entry, this should not be a problem, but when using

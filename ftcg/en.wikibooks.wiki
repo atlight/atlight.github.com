@@ -8,6 +8,7 @@ Category2=Creative Commons Attribution-ShareAlike images
 DefaultCategory=1
 
 NowCommonsTag=Now Commons
+NowCommonsDeletionSummary=Now available at [[Commons:Main Page|Wikimedia Commons]]
 
 Information=Information
 Description=Description

@@ -1,0 +1,188 @@
+# For the Common Good
+# Language file for Russian
+
+# To ensure the highest quality of translation, please read the LOCALIZATION NOTE lines.
+# You do not need to translate lines beginning with the # symbol.
+
+LanguageCode=ru
+
+# Main window
+OriginalFileName_TextBox=&Имя:
+Go_Button=&Открыть
+RandomFile_Button=&Случайный файл
+# LOCALIZATION NOTE: this should have the same access key as "RandomFile_Button"
+NextFileInList_Button=Следующий &файл
+OtherSource_Option=&Другой источник...
+Settings_Button=&Настройки...
+FilePageOnLocalWiki_TextBox_Format=Страница описания &файла на {0}
+FilePageOnCommons_TextBox=Страница описания файла на Викискладе
+MakeSelectedTextIntoWikilink_Hyperlink=Сделать текст вики&ссылкой
+CurrentVersion_Label=Текущая версия
+OldVersion_Label=Устаревшая версия
+Bytes_Format={0} байт
+OneEarlierVersion_Label=Одна ранняя версия
+EarlierVersions_Format={0} ранних версий
+SelectVersion_Button=Выбрать &версию...
+ContainsExifMetadata_Label=Содержит EXIF записи
+ViewMetadata_Button=Просмотреть &метаданные
+ImageUsage_Label=Страницы, использующие файл:
+NoImageUsages_Label=Файл не используется
+SeeWikiForFullList_Label=откройте полный список в Вики
+# LOCALIZATION NOTE: do not translate "File:" (this namespace name works on all wikis)
+NewFilenameOnCommons_TextBox=Новое &имя файла на Викискладе (с префиксом File:):
+IgnoreWarnings_CheckBox=Игнорировать &предупреждения
+# LOCALIZATION NOTE: do not translate "{{now Commons}}"
+TagLocalFileWithNowCommons_Label=П&ометить локальный файл {{now Commons}}
+DeleteLocalFile_Label=Удалить локальный файл &после переноса
+# LOCALIZATION NOTE: "transfer" is a verb
+Transfer_Button=&Перенести
+ViewFilePageOnLocalWiki_Hyperlink_Format=Просмотреть страницу фай&ла на {0}
+ViewFilePageOnWikimediaCommons_Hyperlink=Просмотреть страницу файла на &Викискладе
+DontForgetToCategorize_Label=Добавьте категории на Викискладе!
+HotcatHint_Label=(Перейдите на Викисклад по ссылке справа и используйте HotCat.)
+# LOCALIZATION NOTE: "check" is a noun here, I think; consider translating as "check with Google" - 
+#                    but it must be kept short!
+GoogleCheck_Hyperlink=Поиск в Google
+IfIneligible_Label=Если файл не подходит:
+DeclineTransfer_Button=&Отменить перенос
+NoExifRotation_Label=Внимание: превью не учитывает ориентацию в EXIF данных
+Successful_Label=Успешно
+# LOCALIZATION NOTE: "potential", adjective ~= "possible"
+PotentialProblems_Label=Возможные проблемы
+
+# General
+OK_Button=OK
+Cancel_Button=Отмена
+
+# Other Source window
+RandomSource_WindowTitle=Выбрать источник случайных файлов
+FilesInCategory_Option=Файлы в категории:
+Browse_Button=Обзор...
+FilesFromTextFile_Option=Файлы из текстового списка (по файлу в строке):
+# LOCALIZATION NOTE: "open" is a verb
+OpenTextFile_WindowTitle=Открыть текстовый файл
+FileNotFound_Label=Файл "{0}" не найден. Продолжать?
+
+# Settings window
+Settings_WindowTitle=Настройки
+# LOCALIZATION NOTE: "log in" is a verb here
+LogIn_WindowTitle=Залогиниться
+CommonsLoginDetails_Label=Логин в Викисклад
+LocalLoginDetails_Label=Локальный логин в Вики
+UserName_TextBox=Логин:
+Password_TextBox=Пароль:
+LocalWiki_TextBox=Раздел:
+SameCredentialsAsCommons_CheckBox=Те же данные, что и для Викисклада
+IAmLocalAdministrator_CheckBox=Я - админ локального раздела
+# LOCALIZATION NOTE: do not translate "{{now Commons}}"
+LocalAdministratorExplanation_Label=Когда отмечено, файлы будут удалены после переноса, а не помечены {{now Commons}}.
+# LOCALIZATION NOTE: do not translate "Base64"
+SavePasswordsToDisk_CheckBox=Сохранить пароли (незашифрованные, в Base64)
+CheckForUpdates_CheckBox=Проверять обновления For the Common Good
+OpenFilePageAutomatically_CheckBox=Открыть страницу на Викискладе после переноса
+# LOCALIZATION NOTE: do not translate "CommonsTransfers.log"
+LogTransfers_CheckBox=Вести лог (CommonsTransfers.log)
+LocalWikiData_Label=Данные локального раздела
+LocalWikiDataHint_Label=Вы можете загружать разные наборы для работы For the Common Good в разных языковых разделах.
+# LOCALIZATION NOTE: these are both verbs
+LocalWikiDataLoad_Button=Импорт...
+LocalWikiDataReset_Button=Сбросить
+LocalWikiDataCurrent_Label=Сейчас используется:
+UseHttps_CheckBox=Использовать HTTPS (безопасное подключение)
+
+# "About box" area of Settings window
+Version_Format=Версия {0}
+# LOCALIZATION NOTE: followed by the username "This, that and the other"
+Author_Label=от
+PublicDomain_Label=Находится в общественном достоянии
+
+# Revision browser window
+SelectVersion_WindowTitle=Выбрать версию для переноса
+Preview_Column=Миниатюра
+DateTime_Column=Дата/Время
+# LOCALIZATION NOTE: this column contains the "height x width (xyz bytes)" date
+Dimensions_Column=Размеры
+UserName_Column=Пользователь
+# LOCALIZATION NOTE: this is the upload log summary
+Comment_Column=Комментарий
+# LOCALIZATION NOTE: for technical reasons this is split across three lines;
+#                    if you don't require all three lines leave the unneeded ones
+#                    blank (but don't delete the line).
+FailedToGenerateThumbnail1_Label=Не удалось
+FailedToGenerateThumbnail2_Label=сформировать
+FailedToGenerateThumbnail3_Label=миниатюру
+
+# EXIF viewer window
+ExifViewer_WindowTitle=Просмотр EXIF данных
+# LOCALIZATION NOTE: followed by "current/old version" then timestamp
+ExifDataForVersion_Label=EXIF данные для выбранной версии:
+Name_Column=Имя
+Value_Column=Значение
+# LOCALIZATION NOTE: "close" is a verb here
+Close_Button=Закрыть
+EXIFFailedNotice=Уведомление
+EXIFFailedMessage=Не удалось отобразить все метаданные.
+
+# Messages (error, etc.)
+Welcome1=Добро пожаловать в For the Common Good.
+# LOCALIZATION NOTE: do not translate "Base64"
+Welcome2=В следующем окне Вам нужно будет ввести данные своего аккаунта. Если Вы решите сохранить их, Ваш пароль будет храниться не в текстовом формате, а в формате Base64, что небезопасно! Помните об этом.
+NowCommonsPotentialProblem=Файл помечен {{now Commons}} и, наверно, уже перенесен.
+ChangeIfNotOwnWork=Измените это, если не это собственная работа
+Loading=Загрузка...
+AlreadyCommons=Файл уже на Викискладе; ничего не могу поделать
+ImageMissing=Файл не существует в локальном разделе
+NoFile=Похоже, есть проблема; возможно, файл - это перенаправление
+FailedToDownload=Не удалось загрузить файл. Попробуйте позднее.
+FailedToReadTextFile=Не смог открыть текстовый файл "{0}". Нажмите "Другой источник...", чтобы выбрать другой файл.
+NoMoreFiles=В категории нет файлов. Возможно, Вы ошиблись... или все уже перенесли :)
+RandomCacheEmpty1=В кэше больше нет случайных файлов. Нажмите "Случайный файл" для поиска новых файлов.
+RandomCacheEmpty2=(Не может быть сделано автоматически из-за возможного бесконечного цикла.)
+# LOCALIZATION NOTE: This is an instruction to the user ("please do not do it!"), not an option that can be chosen.
+RandomCacheEmpty3=Не переносите файл, который сейчас отображается.
+PotentialProblemsGoAhead=У файла есть проблемы, которые могут помешать или повлиять на перенос. Вы все еще хотите перенести файл на Викисклад?
+StillDownloading=Файл еще не загрузился. Попробуйте еще раз чуть позже.
+OldVersionTransferAdvice=Вы переносите старую версию файла. Вам нужно будет вручную отредактировать секцию "original upload log". Нажмите Отмена и сделайте это (или нажмите OK, если Вы это уже сделали).
+FilenameClash=Файл с таким же именем уже существует на Викискладе.
+Warnings1=Появились следующие предупреждения:
+Warnings2=Если Вы все еще хотите загрузить, выберите "Игнорировать предупреждения" и попробуйте еще раз.
+# LOCALIZATION NOTE: this uses .NET timestamp formatting. For assistance, consult User:This, that and the other.
+LogFileTimestampFormat=HH:mm, d MMMM yyyy
+LogFileWriteFailed=Не удалось записать лог.
+LocalFileDeleted=Похоже, что файл удален в локальном разделе. Не понимаю, что происходит.
+# LOCALIZATION NOTE: this one should end with a colon.
+NowCommonsFailed=Успешно до момента пометки локального файла шаблоном {{now commons}}:
+AlreadyDeleted=Похоже, что файл уже был удален.
+DeclineReasonPrompt1=Введите причину для отказа в переносе файла на Викисклад.
+DeclineReasonPrompt2=Шаблон {{copy to Commons}} будет автоматически удален.
+CouldNotFindTag=Не могу найти шаблон {{copy to Commons}}, чтобы удалить его. Похоже, используется какое-то перенаправление.
+# LOCALIZATION NOTE: this one should end with a colon.
+FailedPlus=Ошибка:
+# LOCALIZATION NOTE: sense here is "it seems that all is well, but that might not be the case - I don't know".
+#                    Don't translate as "success", since it isn't guaranteed success.
+LooksGood=Вроде бы все в порядке.
+# LOCALIZATION NOTE: probably do not translate "Partial Trust" - it is .NET jargon - but do translate "scenario"
+LinkVisitFailed=Не могу открыть ссылку - запустите FtCG локально, не в режиме Partial Trust.
+# LOCALIZATION NOTE: if I didn't have a sense of humour this would read:
+#                    "You did not select a version to transfer. Please select only one item from the list before clicking OK."
+NoRevisionSelected=Сейчас возвращайся и выбери одну, только одну версию, озорник.
+NewVersionNotice1=Новая версия ({0}) For the Common Good доступна.
+NewVersionNotice2=Советуем посетить http://atlight.github.com для загрузки.
+# LOCALIZATION NOTE: for non-English languages, please specify that [[WT:FTCG]] is on English Wikipedia
+NewVersionNotice3=Вы можете отключать проверку обновлений в настройках, но в таком случае, пожалуйста, добавьте страницу [[:en:WT:FTCG]] в список наблюдения или регулярно проверяйте ее.
+TextFileAutoClean=For the Common Good может удалить записи из текстового файла, вплоть до последней обработанной записи.
+SaveChanges=Вы хотите сохранить изменения в "{0}"?
+TextFileSaveFailed=Не удалось сохранить текстовый файл.
+LightboxFailed=Не удалось сформировать lightbox. Если это SVG - предпросмотр пока недоступен.
+ReadSettingsError=Произошла ошибка при чтении файла настроек.
+SaveSettingsError=Произошла ошибка при сохранении файла настроек.
+LocalWikiDataLoadFailed=Не удалось загрузить файл данных локального раздела. Убедитесь, что все поля корректны и не имеют ошибок.
+FileNotFoundLocal=Файл "{0}" не найден.
+LocalWikiDataWrongDomain=Выбранный файл данных предназначен для {0}. Измените поле "локальный раздел" соответствующим образом.
+LocalWikiDataReset=Файл данных по умолчанию предназначен для использования в английской Википедии (en.wikipedia). Вы должны изменить поле "локальный раздел" на "en.wikipedia" для оптимальной работы.
+
+# Network errors
+MorebitsDotNet_LoginFailure=Логин не удался: {0}
+MorebitsDotNet_NetRequestFailure=Интернет-запрос не выполнен.
+MorebitsDotNet_UnknownLoginFailure=Неизвестная ошибка логина.
+MorebitsDotNet_ApiError=Произошла ошибка API.
