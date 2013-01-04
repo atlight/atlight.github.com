@@ -1,4 +1,4 @@
-# For the Common Good
+﻿# For the Common Good
 # Language file for Russian
 
 # To ensure the highest quality of translation, please read the LOCALIZATION NOTE lines.
@@ -8,7 +8,7 @@ LanguageCode=ru
 
 # Main window
 OriginalFileName_TextBox=&Имя:
-Go_Button=&Открыть
+Go_Button=&Вперед
 RandomFile_Button=&Случайный файл
 # LOCALIZATION NOTE: this should have the same access key as "RandomFile_Button"
 NextFileInList_Button=Следующий &файл
@@ -17,6 +17,7 @@ Settings_Button=&Настройки...
 FilePageOnLocalWiki_TextBox_Format=Страница описания &файла на {0}
 FilePageOnCommons_TextBox=Страница описания файла на Викискладе
 MakeSelectedTextIntoWikilink_Hyperlink=Сделать текст вики&ссылкой
+PreviewCommonsWikitext_Hyperlink=Предварительный просмотр
 CurrentVersion_Label=Текущая версия
 OldVersion_Label=Устаревшая версия
 Bytes_Format={0} байт
@@ -43,8 +44,7 @@ HotcatHint_Label=(Перейдите на Викисклад по ссылке �
 # LOCALIZATION NOTE: "check" is a noun here, I think; consider translating as "check with Google" - 
 #                    but it must be kept short!
 GoogleCheck_Hyperlink=Поиск в Google
-IfIneligible_Label=Если файл не подходит:
-DeclineTransfer_Button=&Отменить перенос
+IfIneligibleEditManually_Label=Если файл не подходит, исправьте шаблон лицензии вручную.
 NoExifRotation_Label=Внимание: превью не учитывает ориентацию в EXIF данных
 Successful_Label=Успешно
 # LOCALIZATION NOTE: "potential", adjective ~= "possible"
@@ -165,7 +165,7 @@ LooksGood=Вроде бы все в порядке.
 LinkVisitFailed=Не могу открыть ссылку - запустите FtCG локально, не в режиме Partial Trust.
 # LOCALIZATION NOTE: if I didn't have a sense of humour this would read:
 #                    "You did not select a version to transfer. Please select only one item from the list before clicking OK."
-NoRevisionSelected=Сейчас возвращайся и выбери одну, только одну версию, озорник.
+NoRevisionSelected=А теперь возвращайся и выбери одну, только одну версию, озорник.
 NewVersionNotice1=Новая версия ({0}) For the Common Good доступна.
 NewVersionNotice2=Советуем посетить http://atlight.github.com для загрузки.
 # LOCALIZATION NOTE: for non-English languages, please specify that [[WT:FTCG]] is on English Wikipedia
@@ -186,3 +186,28 @@ MorebitsDotNet_LoginFailure=Логин не удался: {0}
 MorebitsDotNet_NetRequestFailure=Интернет-запрос не выполнен.
 MorebitsDotNet_UnknownLoginFailure=Неизвестная ошибка логина.
 MorebitsDotNet_ApiError=Произошла ошибка API.
+
+# Welcome text, shown in left-hand text box on startup
+# LOCALIZATION NOTE: this string should be no longer than 54 characters.
+WelcomeToFtcg_Title=Вас приветствует For the Common Good!
+# LOCALIZATION NOTE: each of these strings should be no longer than 62 characters. If you need to, 
+#                    you can use the extra line/s provided (blank in English, because we don't need them, 
+#                    but they will work if you fill them in).
+#                    Do not delete any blank entries though!!
+WelcomeToFtcg_IsGood1=Это простой способ перенести файлы на Викисклад.
+WelcomeToFtcg_IsGood2=
+WelcomeToFtcg_GetStarted1=Чтобы начать, либо
+WelcomeToFtcg_GetStarted2=1. введите имя файла для переноса и нажмите "Вперед", или
+# LOCALIZATION NOTE: GetStarted3 must be no longer than 59 characters
+WelcomeToFtcg_GetStarted3=
+WelcomeToFtcg_GetStarted4=2. выберите "Случайный файл" для обработки выбранной категории
+# LOCALIZATION NOTE: GetStarted5 must be no longer than 59 characters
+WelcomeToFtcg_GetStarted5=
+# LOCALIZATION NOTE: "Transfer" should be the same as the "Transfer_Button" string
+WelcomeToFtcg_NotABludge1=ВАЖНО: FtCG не сделает всю работу за Вас.
+WelcomeToFtcg_NotABludge2=Вам *нужно* править сгенерированный викитекст
+WelcomeToFtcg_NotABludge3=в правом окне до нажатия кнопки "Перенос". 
+WelcomeToFtcg_NotABludge4=
+WelcomeToFtcg_NotABludge5=
+# LOCALIZATION NOTE: a breezy salutation to make people happy
+WelcomeToFtcg_Enjoy=Удачи!
