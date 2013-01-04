@@ -1,0 +1,90 @@
+﻿# For the Common Good
+# Local wiki data for Russian Wikipedia
+
+LocalDomain=ru.wikipedia
+
+Category1=Файлы:К переносу на Викисклад
+Category2=Файлы:PD-Old-100
+Category3=Файлы:Имеющие OTRS-разрешение
+DefaultCategory=1
+
+NowCommonsTag=Перенесено на Викисклад
+
+# The deletion summary used when deleting a file after transfer (option available
+# to admins only) - link to a relevant deletion policy if possible
+NowCommonsDeletionSummary=[[ВП:КБУ#Ф8|Ф8]]: доступно на [[Викисклад]]
+
+Information=Изображение
+Description=Описание
+Date=Время создания
+Source=Источник
+Author=Автор
+Permission=Лицензия
+other_versions=Прочее
+
+Summary=Краткое описание
+Licensing=Лицензирование
+
+CategoryNamespace=Category
+
+CopyToCommonsRegex={{(Перенести на Викисклад|На склад|Copy to Wikimedia Commons|На викисклад|To commons|mtc)[^}]*}}\n?
+
+[PotentialProblem]
+IfRegex={{(db\-|Уд\-)
+Message=Похоже, что файл вынесен на удаление.
+
+[PotentialProblem]
+IfContains={{disputed
+Message=Похоже, что файл вынесен на удаление.
+
+[PotentialProblem]
+IfContains={{no license
+Message=У файла нет лицензии.
+
+[PotentialProblem]
+IfContains={{no source
+Message=У файла нет источника.
+
+[PotentialProblem]
+IfContains={{no permission
+Message=У файла нет разрешения автора.
+
+[PotentialProblem]
+IfContains={{no author
+Message=У файла не указан автор.
+
+[PotentialProblem]
+IfContains={{Несвободный файл
+Message=Несвободные файлы нельзя загружать на Викисклад.
+
+[PotentialProblem]
+IfContains={{NoCommons
+Message=Похоже, что файл не стоит переносить на Викисклад.
+
+[PotentialProblem]
+IfContains={{FoP
+Message=Из-за [[ВП:СП|несвободы панорамы]] файл не стоит переносить.
+
+[Replacement]
+LookFor={{GFDL-1.1-plus([^\}]*)}}
+ReplaceWith={{GFDL-1.1,1.2,1.3}}
+
+[Replacement]
+LookFor={{PD-user([^\}]*)}}
+ReplaceWith={{PD-user-w|project=wikipedia|language=ru|user=%%OriginalUploader%%}}
+
+[Replacement]
+LookFor== *собственная работа*.?
+ReplaceWith== {{own}}
+
+[SelfLicenseReplacement]
+LookFor={{PD-self([^\}]*)}}
+ReplaceWith={{PD-user-w|project=wikipedia|language=ru|user=%%OriginalUploader%%}}
+
+[SelfLicenseReplacement]
+LookFor={{GFDL-self([^\}]*)}}
+ReplaceWith={{GFDL-user|%%OriginalUploader%%|b$1}}
+
+[SelfLicenseReplacement]
+LookFor={{self([^\}]*)}}
+ReplaceWith={{self$1|author=[[%%InterwikiLinkPrefix%%:%%OriginalUploader%%|]]}}
