@@ -3,6 +3,8 @@
 
 LocalDomain=ru.wikipedia
 
+LocalFtcgPage=w:ru:ВП:FTCG
+
 Category1=Файлы:К переносу на Викисклад
 Category2=Файлы:PD-Old-100
 Category3=Файлы:Имеющие OTRS-разрешение
@@ -12,7 +14,11 @@ NowCommonsTag=Перенесено на Викисклад
 
 # The deletion summary used when deleting a file after transfer (option available
 # to admins only) - link to a relevant deletion policy if possible
-NowCommonsDeletionSummary=[[ВП:КБУ#Ф8|Ф8]]: доступно на [[Викисклад]]
+NowCommonsDeletionSummary=[[ВП:КБУ#Ф8|Ф8]]: доступно на [[Викисклад]]е
+
+# Some edit summaries to translate into your wiki's language
+NowCommonsAddingTagEditSummary=Добавлен шаблон {{NCT}} 
+NowCommonsReplacingTagEditSummary=Шаблон {{Перенести на Викисклад}} заменен на шаблон {{NCT}}
 
 Information=Изображение
 Description=Описание
@@ -25,7 +31,7 @@ other_versions=Прочее
 Summary=Краткое описание
 Licensing=Лицензирование
 
-CategoryNamespace=Category
+CategoryNamespace=Категория
 
 CopyToCommonsRegex={{(Перенести на Викисклад|На склад|Copy to Wikimedia Commons|На викисклад|To commons|mtc)[^}]*}}\n?
 
