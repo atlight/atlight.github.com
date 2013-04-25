@@ -1,0 +1,97 @@
+﻿# For the Common Good
+# Local wiki data for Portuguese Wikipedia
+
+# After modifying this file, you must import it into FtCG again to see the changes.
+
+
+# This should be the web address of your wiki, without ".org"
+LocalDomain=pt.wikipedia
+
+# If there is a page describing FtCG on your wiki, put its name here
+# If not, just keep the following value
+LocalFtcgPage=w:en:WP:FTCG
+
+# Three preset categories to appear at the top of the window
+# If you don't have three, just remove the unneeded ones
+Category1=Imagens verificadas e transferíveis para o Commons
+DefaultCategory=1
+
+# The name of the "Category" namespace on your local wiki, without the colon
+# (since the English name "Category" works on all wikis, you don't need to include 
+# it here - FtCG handles it)
+CategoryNamespace=Categoria
+
+# The local name for the "now Commons" template, indicating that the local copy of
+# an image should be deleted after transfer
+NowCommonsTag=NowCommons
+
+# The deletion summary used when deleting a file after transfer (option available
+# to admins only) - link to a relevant deletion policy if possible
+NowCommonsDeletionSummary=[[WP:ER#ER14]]: Ficheiros que já estão no Wikimedia Commons
+
+# Some edit summaries to translate into your wiki's language
+NowCommonsAddingTagEditSummary=Adicionando {{NowCommons}}
+NowCommonsReplacingTagEditSummary=Substituíndo {{Mover para o Commons}} com {{NowCommons}}
+
+
+# IMPORTANT: All entries from here onwards are treated as regular expressions.
+# For normal text entry, this should not be a problem, but when using
+# symbols like ( ) [ ] ? * + | etc., please prefix with a backslash: \( \[ etc.
+
+# Local equivalents of the {{information}} template and its parameters
+# (put the local name SECOND, e.g. Information=Ergojduhd)
+Information=Informação
+Description=Descrição
+Date=@@date@@
+Source=Fonte
+Author=Autor
+Permission=Permissão
+Other_versions=outras informações
+
+# Section headings in use on the local wiki
+# (put the local name SECOND, e.g. Summary=Quofkokvej)
+Summary=Summary
+Licensing=Licensing|License|Permissions
+
+# The regular expression used to detect "Copy to Commons" tags
+# This one is for English Wikipedia
+CopyToCommonsRegex={{(mover para o commons|move[ -]to[ -]commons)[^}]*}}\n?
+
+
+
+[PotentialProblem]
+IfContains={{er
+Message=The file appears to be tagged for speedy deletion. (please translate into Portuguese)
+
+# replace }} (when alone on a line) with a license header
+[Replacement]
+LookFor=(\n}})
+ReplaceWith=$1\n\n== {{int:license}} ==\n
+
+[Replacement]
+LookFor=({{informação\s*\|\s*descrição\s*=\s*[^|}]+)
+ReplaceWith=$1| @@date@@ =\n
+
+[Replacement]
+LookFor=\|\s*direitos\s*=\s*[^|}]+
+ReplaceWith=
+
+[Replacement]
+LookFor=\|\s*artigo\s*=\s*[^|}]+
+ReplaceWith=
+
+[Replacement]
+LookFor=\|\s*integral ou parte\s*=\s*[^|}]+
+ReplaceWith=
+
+[Replacement]
+LookFor=\|\s*carregamento\s*=\s*[^|}]+
+ReplaceWith=
+
+[Replacement]
+LookFor=\|\s*propósito\s*=\s*[^|}]+
+ReplaceWith=
+
+[Replacement]
+LookFor=\|\s*insubstituível\s*=\s*[^|}]+
+ReplaceWith=
