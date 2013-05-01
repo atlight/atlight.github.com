@@ -26,7 +26,7 @@ Date=Время создания
 Source=Источник
 Author=Автор
 Permission=Лицензия
-other_versions=Прочее
+Other_versions=Прочее
 
 Summary=Краткое описание
 Licensing=Лицензирование
