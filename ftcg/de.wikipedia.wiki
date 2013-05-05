@@ -1,0 +1,326 @@
+﻿# For the Common Good
+# Local wiki data for German  Wikipedia
+
+# After modifying this file, you must import it into FtCG again to see the changes.
+
+LocalDomain=de.wikipedia
+
+# If there is a page describing FtCG on your wiki, put its name here
+# If not, just keep the following value
+LocalFtcgPage=w:en:WP:FTCG
+
+# Three preset categories to appear at the top of the window
+# If you don't have three, just remove the unneeded ones
+Category1=Datei:Commonsfähig
+DefaultCategory=1
+
+# The name of the "Category" namespace on your local wiki, without the colon
+# (since the English name "Category" works on all wikis, you don't need to include 
+# it here - FtCG handles it)
+CategoryNamespace=Kategorie
+
+# The local name for the "now Commons" template, indicating that the local copy of
+# an image should be deleted after transfer
+NowCommonsTag=NowCommons
+
+# The deletion summary used when deleting a file after transfer (option available
+# to admins only) - link to a relevant deletion policy if possible
+NowCommonsDeletionSummary=[[WP:SLA#Dateien]]: Identische Datei existiert jetzt auf Wikimedia Commons.
+
+# Some edit summaries to translate into your wiki's language
+NowCommonsAddingTagEditSummary={{NowCommons}} hinzugefügt
+NowCommonsReplacingTagEditSummary=Ersetzen von {{Commonsfähig}} durch {{NowCommons}}
+
+# IMPORTANT: All entries from here onwards are treated as regular expressions.
+# For normal text entry, this should not be a problem, but when using
+# symbols like ( ) [ ] ? * + | etc., please prefix with a backslash: \( \[ etc.
+
+# Local equivalents of the {{information}} template and its parameters
+# (put the local name SECOND, e.g. Information=Ergojduhd)
+Information=Information
+Description=Beschreibung
+Date=Datum
+Source=Quelle
+Author=Urheber
+Permission=Genehmigung
+Other_versions=Andere Versionen
+
+# Section headings in use on the local wiki
+# (put the local name SECOND, e.g. Summary=Quofkokvej)
+Summary=Beschreibung, Quelle
+Licensing=Lizenz|Lizenzen|\[\[Wikipedia:Lizenzvorlagen für Bilder\|Lizenz\]\]:?
+
+# The regular expression used to detect "Copy to Commons" tags
+# This one is for German Wikipedia
+CopyToCommonsRegex={{(Commonsfähig)[^}]*}}\n?
+
+[PotentialProblem]
+IfRegex={{(löschen|sla|speedy|delete|db-|schnelllöschen)
+Message=Für diese Datei ist ein Schnelllöschantrag gestellt worden und sollte daher (noch) nicht nach Commons hochgeladen werden.
+
+[PotentialProblem]
+IfContains={{löschantragstext
+Message=Für diese Datei ist ein Löschantrag gestellt worden und sollte daher (noch) nicht nach Commons hochgeladen werden.
+
+[PotentialProblem]
+IfRegex={{(dateiüberprüfung|DÜP)
+Message=Mit dieser Datei gibt es (noch) Probleme bei der rechtlichen Situation. Bevor diese Probleme nicht gelöst sind, bitte nicht nach Commons hochladen.
+
+[PotentialProblem]
+IfRegex=\|\s*Quelle\s*=\s*\|\s*Urheber\s*=\s*\|
+Message=Es fehlt der Urheber bzw. der Nutzungsrechteinhaber sowie die Quelle für die Datei (wer hat die Datei ursprünglich erstellt und woher hat der Uploader die Datei?). Ohne diese Angaben sollte die Datei nicht auf Commons hochgeladen werden.
+
+[PotentialProblem]
+IfRegex=\|\s*Quelle\s*=\s*\|\s*Urheber\s*=\s*[^\s\|][^\|]+\|
+Message=Es fehlt die Quelle für die Datei (woher hat der Uploader die Datei?). Ohne diese Angaben sollte die Datei nicht auf Commons hochgeladen werden.
+
+[PotentialProblem]
+IfRegex=\|\s*Quelle\s*=\s*[^\s\|][^\|]+\|\s*Urheber\s*=\s*\|
+Message=Es fehlt der Urheber bzw. der Nutzungsrechteinhaber für die Datei (wer hat die Datei ursprünglich erstellt?). Ohne diese Angaben sollte die Datei nicht auf Commons hochgeladen werden.
+
+[PotentialProblem]
+IfContains={{(OTRS in Arbeit|OTRS received)
+Message=Mit dieser Datei gibt es (noch) Probleme bei der rechtlichen Situation. Bevor diese Probleme nicht gelöst sind, bitte nicht nach Commons hochladen.
+
+[PotentialProblem]
+IfContains={{Unklare Lizenzierung
+Message=Mit dieser Datei gibt es (noch) Probleme bei der rechtlichen Situation. Bevor diese Probleme nicht gelöst sind, bitte nicht nach Commons hochladen.
+
+[PotentialProblem]
+IfContains={{JetztAuchSVG
+Message=Für diese Datei steht eine ähnliche, verlustfrei skalierbare Vektorgrafik im SVG-Format zur Verfügung. Es sollte individuell geprüft werden, ob nicht die SVG-Version verwendet werden kann.
+
+[PotentialProblem]
+IfContains={{JetztSVG
+Message=Für diese Datei steht eine ähnliche, verlustfrei skalierbare Vektorgrafik im SVG-Format zur Verfügung. Es sollte individuell geprüft werden, ob nicht die SVG-Version verwendet werden kann.
+
+[PotentialProblem]
+IfContains={{InvalideSVG
+Message=Diese skalierbare Vektorgrafik entspricht nicht den in der Wikipedia vorgesehenen Standards und sollte vorher überprüft werden. Wenn es jetzt immer noch Fehlermeldungen gibt, dann sollte die Datei nicht auf Commons hochgeladen werden.
+
+[PotentialProblem]
+IfContains={{Bilderwerkstatt
+Message=Dieses Bild wurde in der Bilderwerkstatt hergestellt und ist aus einem bereits existierenden Bild der deutschsprachigen Wikipedia oder aus Commons abgeleitet. Es wird lokal für den Vorher-Nachher-Vergleich gebraucht und sollte nicht auf Commons hochgeladen werden.
+
+[PotentialProblem]
+IfContains={{NoCommons (Benutzerbild)
+Message=Dieses Bild zeigt einen oder mehrere Wikipedianer. Der Hochlader der Datei bittet (nicht als lizenzrechtliche Bedingung, sondern als unverbindliche Bitte zu verstehen) darum, dass sie nicht auf Wikimedia Commons hochgeladen wird.
+
+[PotentialProblem]
+IfContains={{Datei identisch
+Message=Diese Datei ist identisch zu einer anderen Datei. Bitte lese die Hinweise, bevor die Datei auf Commons hochgeladen wird.
+
+[PotentialProblem]
+IfContains={{Schutzlandprinzip
+Message=Diese Datei ist im Entstehungsland wahrscheinlich urheberrechtlich geschützt und sollte daher nicht auf Commons hochgeladen werden.
+
+[PotentialProblem]
+IfContains={{Bild-PD-alt
+Message=Bitte URAA-Problematik beachten. Diese Datei ist möglicherweise nicht mit den Richtlinien von Wikimedia Commons kompatibel.
+
+
+[Replacement]
+LookFor==\s*(selbst (fotografiert|photographiert|erstellt|gemacht)|eigenes (werk|bild|foto))
+ReplaceWith== {{own}}
+
+# replacing dewiki license tags
+[Replacement]
+LookFor={{Logo[^\}]*}}
+ReplaceWith={{Trademarked}}
+
+[Replacement]
+LookFor={{Bild-LogoSH[^\}]*}}
+ReplaceWith={{PD-textlogo}}{{Trademarked}}{{PD-shape}}
+
+[Replacement]
+LookFor={{Bild-PD-Schöpfungshöhe[^\}]*}}
+ReplaceWith={{PD-ineligible}}
+
+[Replacement]
+LookFor={{Bild-by[^\}]*}}
+ReplaceWith={{Attribution}}
+
+[Replacement]
+LookFor={{Bild-CC-0[^\}]*}}
+ReplaceWith={{Cc-zero}}
+
+[Replacement]
+LookFor={{Bild-CC-by-sa/1.0[^\}]*}}
+ReplaceWith={{Cc-by-sa-1.0}}
+
+[Replacement]
+LookFor={{Bild-CC-by-sa/2.0/de[^\}]*}}
+ReplaceWith={{Cc-by-sa-2.0-de}}
+
+[Replacement]
+LookFor={{Bild-CC-by-sa/2.0[^\}]*}}
+ReplaceWith={{Cc-by-sa-2.0}}
+
+[Replacement]
+LookFor={{Bild-CC-by-sa/2.5[^\}]*}}
+ReplaceWith={{Cc-by-sa-2.5}}
+
+[Replacement]
+LookFor={{Bild-CC-by-sa/3.0/at[^\}]*}}
+ReplaceWith={{Cc-by-sa-3.0-at}}
+
+[Replacement]
+LookFor={{Bild-CC-by-sa/3.0/ch[^\}]*}}
+ReplaceWith={{Cc-by-sa-3.0-ch}}
+
+[Replacement]
+LookFor={{Bild-CC-by-sa/3.0/de[^\}]*}}
+ReplaceWith={{Cc-by-sa-3.0-de}}
+
+[Replacement]
+LookFor={{Bild-CC-by-sa/3.0[^\}]*}}
+ReplaceWith={{Cc-by-sa-3.0}}
+
+[Replacement]
+LookFor={{Bild-CC-by/2.0/de[^\}]*}}
+ReplaceWith={{Cc-by-2.0-de}}
+
+[Replacement]
+LookFor={{Bild-CC-by/2.0[^\}]*}}
+ReplaceWith={{Cc-by-2.0}}
+
+[Replacement]
+LookFor={{Bild-CC-by/2.5[^\}]*}}
+ReplaceWith={{Cc-by-2.5}}
+
+[Replacement]
+LookFor={{Bild-CC-by/3.0/ch[^\}]*}}
+ReplaceWith={{Cc-by-3.0}}
+
+[Replacement]
+LookFor={{Bild-CC-by/3.0/de[^\}]*}}
+ReplaceWith={{Cc-by-3.0-de}}
+
+[Replacement]
+LookFor={{Bild-CC-by/3.0[^\}]*}}
+ReplaceWith={{Cc-by-3.0}}
+
+[SelfLicenseReplacement]
+LookFor={{Bild-frei[^\}]*}}
+ReplaceWith=Bitte wählen: Wenn der ursprüngliche Hochlader auch der Author der Datei ist, dann {{PD-user-de|%%OriginalUploader%%}}\nIn allen anderen Fällen: {{Copyrighted free use}}
+
+[Replacement]
+LookFor={{Bild-GFDL/1.2[^\}]*}}
+ReplaceWith={{GFDL-1.2}}
+
+[Replacement]
+LookFor={{Bild-GFDL/1.3[^\}]*}}
+ReplaceWith={{GFDL-1.3}}
+
+[Replacement]
+LookFor={{Bild-GFDL[^\}]*}}
+ReplaceWith={{GFDL|migration=relicense}}
+
+[Replacement]
+LookFor={{Bild-GFDL-Neu[^\}]*}}
+ReplaceWith={{GFDL|migration=not-eligible}}
+
+[Replacement]
+LookFor={{Bild-PD-alt-100[^\}]*}}
+ReplaceWith={{PD-old-100}}
+
+[Replacement]
+LookFor={{Bild-PD-alt-1923[^\}]*}}
+ReplaceWith={{PD-1996}}
+
+[Replacement]
+LookFor={{Bild-PD-alt[^\}]*}}
+ReplaceWith=Bitte URAA-Problematik beachten. Diese Datei ist möglicherweise nicht mit den Richtlinien von Wikimedia Commons kompatibel.
+
+[Replacement]
+LookFor={{Bild-PD-Amtliches-?Werk[^\}]*}}
+ReplaceWith=Bitte wählen: Deutschland {{PD-GermanGov}} oder Österreich {{PD-AustrianGov}}
+
+[Replacement]
+LookFor={{Bild-PD-US[^\}]*}}
+ReplaceWith={{PD-USGov}}
+
+[Replacement]
+LookFor={{Bild-PD-§-?134-KUG[^\}]*}}
+ReplaceWith={{PD-Germany-§134-KUG}}
+
+[Replacement]
+LookFor={{Bild-PD-§-?134[^\}]*}}
+ReplaceWith={{PD-Germany-§134}}
+
+# replacing OTRS tag
+
+[Replacement]
+LookFor={{OTRS\|[^|]*\|\s*(\d+)\s*[^\}]*}}
+ReplaceWith={{PermissionOTRS|id=$1}}
+
+# replacing dewiki user licenses with a significant number of local uploads
+
+[Replacement]
+LookFor={{Benutzer:-jha-/Lizenz[^\}]*}}
+ReplaceWith={{User:-jha-/Lizenz}}
+
+# replacing dewiki maintance tags or image advices
+
+[Replacement]
+LookFor={{(In SVG konvertieren|SVG)[^\}]*}}
+ReplaceWith={{Convert to SVG}}
+
+[Replacement]
+LookFor={{Pixelbild-SVG[^\}]*}}
+ReplaceWith={{BadSVG}}
+
+[Replacement]
+LookFor={{In PNG konvertieren[^\}]*}}
+ReplaceWith={{Convert to PNG}}
+
+[Replacement]
+LookFor={{(Wappenrecht|Olympische Ringe)[^\}]*}}
+ReplaceWith={{Insignia}}
+
+[Replacement]
+LookFor={{Währung[^\}]*}}
+ReplaceWith={{Currency}}
+
+[Replacement]
+LookFor={{Recht am eigenen Bild[^\}]*}}
+ReplaceWith={{Personality rights}}
+
+[Replacement]
+LookFor={{Panoramafreiheit[^\}]*}}
+ReplaceWith={{FoP}}
+
+[Replacement]
+LookFor={{Kennzeichen verfassungswidriger Organisationen[^\}]*}}
+ReplaceWith={{Nazi symbol}}
+
+[Replacement]
+LookFor={{Bild-WikimediaCopyright[^\}]*}}
+ReplaceWith={{Copyright by Wikimedia}}
+
+# Technical replacements
+
+# Redundant, {{Logo-Geschichte}}, advice to not overwrite logos with new logo versions, creates conflict with {{Logo}} if not replaced here (by nothing)
+[Replacement]
+LookFor={{Logo-Geschichte[^\}]*}}
+ReplaceWith=
+
+# Redundant, similar/same to {{Bild-PD-Schöpfungshöhe}}
+[Replacement]
+LookFor={{Auch lizenziert[^\}]*}}
+ReplaceWith=
+
+# Test for presence of field "Anmerkungen" (en: remarks), if desired. Will appear on all transfers, even with "Anmerkungen" empty
+[Replacement]
+LookFor=\|\s*Anmerkungen\s*=\s*([^|}]{3,})
+ReplaceWith=|Other_fields   = {{Information field|name=Remarks|value={{de|1=$1}}}}
+
+[Replacement]
+LookFor=\|\s*Anmerkungen\s*=\s*([^|}]{0,2}[|}])
+ReplaceWith=$1
+
+# Redundant, not really a license. Depends on more license information to be added.
+[Replacement]
+LookFor={{Musik-PD (Werk)[^\}]*}}
+ReplaceWith=
+
