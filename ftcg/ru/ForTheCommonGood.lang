@@ -167,9 +167,13 @@ LinkVisitFailed=Не могу открыть ссылку - запустите F
 #                    "You did not select a version to transfer. Please select only one item from the list before clicking OK."
 NoRevisionSelected=А теперь возвращайся и выбери одну, только одну версию, озорник.
 NewVersionNotice1=Новая версия ({0}) For the Common Good доступна.
-NewVersionNotice2=Советуем посетить http://atlight.github.com для загрузки.
+# LOCALIZATION NOTE: {0} will be replaced by the URL of the download site
+NewVersionNotice2=Советуем посетить {0} для загрузки.
+# LOCALIZATION NOTE: The text of NewVersionNoticeWatchLink will be inserted at {0} (the separate
+#                    string is needed to allow the creation of a clickable link)
+NewVersionNotice3=Вы можете отключать проверку обновлений в настройках, но в таком случае, пожалуйста, {0} или регулярно проверяйте ее.
 # LOCALIZATION NOTE: for non-English languages, please specify that [[WT:FTCG]] is on English Wikipedia
-NewVersionNotice3=Вы можете отключать проверку обновлений в настройках, но в таком случае, пожалуйста, добавьте страницу [[:en:WT:FTCG]] в список наблюдения или регулярно проверяйте ее.
+NewVersionNoticeWatchLink=добавьте страницу [[:en:WT:FTCG]] в список наблюдения
 TextFileAutoClean=For the Common Good может удалить записи из текстового файла, вплоть до последней обработанной записи.
 SaveChanges=Вы хотите сохранить изменения в "{0}"?
 TextFileSaveFailed=Не удалось сохранить текстовый файл.
