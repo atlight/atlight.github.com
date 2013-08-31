@@ -1,0 +1,221 @@
+# For the Common Good
+# Language file for German
+
+# To ensure the highest quality of translation, please read the LOCALIZATION NOTE lines.
+# You do not need to translate lines beginning with the # symbol.
+
+LanguageCode=de
+
+# Main window
+OriginalFileName_TextBox=&Name:
+Go_Button=&Los
+RandomFile_Button=&Zufällige Datei
+# LOCALIZATION NOTE: this should have the same access key as "RandomFile_Button"
+NextFileInList_Button=Nächste Datei von der Liste
+OtherSource_Option=&Andere Quelle...
+Settings_Button=&Einstellungen...
+FilePageOnLocalWiki_TextBox_Format=Dateibeschreibungsseite auf {0}
+FilePageOnCommons_TextBox=Dateibeschreibungsseite auf Wi&kimedia Commons
+MakeSelectedTextIntoWikilink_Hyperlink=Verlinke den markierten Text
+PreviewCommonsWikitext_Hyperlink=Vorschau Wikitext
+CurrentVersion_Label=Aktuelle Version
+OldVersion_Label=Alte Version
+Bytes_Format={0} Bytes
+OneEarlierVersion_Label=Eine ältere Version
+EarlierVersions_Format={0} ältere Versionen
+SelectVersion_Button=Wähle Version...
+ContainsExifMetadata_Label=Enthält EXIF-Metadaten
+ViewMetadata_Button=Zeige Metadaten
+ImageUsage_Label=Seiten die diese Datei benutzen:
+NoImageUsages_Label=Keine Seite benutzt diese Datei
+SeeWikiForFullList_Label=Siehe Wiki für vollständige Liste
+# LOCALIZATION NOTE: do not translate "File:" (this namespace name works on all wikis)
+NewFilenameOnCommons_TextBox=Neuer Dateiname auf Commons (mit File: Präfix):
+IgnoreWarnings_CheckBox=Ignoriere Warnungen
+# LOCALIZATION NOTE: do not translate "{{now Commons}}"
+TagLocalFileWithNowCommons_Label=Markiere lokale Datei mit {{now Commons}}
+DeleteLocalFile_Label=Lösche lokale Datei nach Verschiebung
+# LOCALIZATION NOTE: "transfer" is a verb
+Transfer_Button=&Verschieben
+ViewFilePageOnLocalWiki_Hyperlink_Format=Zeige Dateibeschreibungsseite auf {0}
+ViewFilePageOnWikimediaCommons_Hyperlink=Zeige Dateibeschreibungsseite auf Wikimedia &Commons
+DontForgetToCategorize_Label=Vergiss nicht die Datei auf Commons zu kategorisieren!
+HotcatHint_Label=Klicke auf den "Wikimedia Commons"-Link rechts und benutze HotCat wenn du möchtest.)
+# LOCALIZATION NOTE: "check" is a noun here, I think; consider translating as "check with Google" - 
+#                    but it must be kept short!
+GoogleCheck_Hyperlink=Überprüfe mit Google
+IfIneligibleEditManually_Label=Wenn die Lizenz nicht korrekt dargestellt ist, editiere die Dateibeschreibungsseite manuell und füge sie ein.
+NoExifRotation_Label=Hinweis: Diese Vorschau berücksichtigt nicht Rotationen von EXIF-Metadaten.
+Successful_Label=Erfolgreich
+# LOCALIZATION NOTE: "potential", adjective ~= "possible"
+PotentialProblems_Label=Mögliche Probleme
+
+# General
+OK_Button=OK
+Cancel_Button=Abbrechen
+
+# Other Source window
+RandomSource_WindowTitle=Wähle Quelle von zufälliger Datei.
+FilesInCategory_Option=Dateien aus der Kategorie:
+Browse_Button=Suche...
+FilesFromTextFile_Option=Dateien von gespeicherter Textdatei (ein Dateiname per Zeile):
+# LOCALIZATION NOTE: "open" is a verb
+OpenTextFile_WindowTitle=Öffne nächste Datei
+FileNotFound_Label=Die Datei "{0}" konnte nicht gefunden werden. Trotzdem fortfahren?
+
+# Settings window
+Settings_WindowTitle=Einstellungen
+# LOCALIZATION NOTE: "log in" is a verb here
+LogIn_WindowTitle=Anmelden
+CommonsLoginDetails_Label=Anmeldedaten bei Wikimedia Commons
+LocalLoginDetails_Label=Anmeldedaten im lokalen Wiki
+UserName_TextBox=Benutzername:
+Password_TextBox=Passwort:
+LocalWiki_TextBox=Lokales Wiki:
+SameCredentialsAsCommons_CheckBox=Gleiche wie die Anmeldedaten für Commons
+IAmLocalAdministrator_CheckBox=Ich bin ein Administrator in meinem lokalen Wiki
+# LOCALIZATION NOTE: do not translate "{{now Commons}}"
+LocalAdministratorExplanation_Label=Wenn geprüft werden lokale Kopien der verschobenen Dateien gelöscht, anstatt mit {{now Commons}} markiert zu werden.
+# LOCALIZATION NOTE: do not translate "Base64"
+SavePasswordsToDisk_CheckBox=Speichere Passwort auf dem Computer (unverschlüsselt, in Base64 kodiert)
+CheckForUpdates_CheckBox=Überprüfe Verfügbarkeit von einer neueren Version von For the Common Good
+OpenFilePageAutomatically_CheckBox=Öffne Dateibeschreibungsseite auf Commons nach einer geglückten Verschiebung.
+OpenLocalFilePageAutomatically_CheckBox=Öffne Dateibeschreibungsseite im lokalen Wiki nach einer geglückten Verschiebung.
+# LOCALIZATION NOTE: do not translate "CommonsTransfers.log"
+LogTransfers_CheckBox=Führe ein Log über alle Verschiebungen (CommonsTransfers.log)
+LocalWikiData_Label=Daten im lokalen Wiki
+LocalWikiDataHint_Label=Du kannst verschiedene Datensätze herunterladen damit For the Common Good effektiver auf vielen verschiedenen Wikis arbeitet.
+# LOCALIZATION NOTE: these are both verbs
+LocalWikiDataLoad_Button=Importieren...
+LocalWikiDataReset_Button=Zurücksetzten
+LocalWikiDataCurrent_Label=Momentan wird verwendet:
+UseHttps_CheckBox=Benutze HTTPS (sichere Verbindung)
+
+# "About box" area of Settings window
+Version_Format=Version {0}
+# LOCALIZATION NOTE: followed by the username "This, that and the other"
+Author_Label=Von
+PublicDomain_Label=Veröffentlicht in die Public Domain
+
+# Revision browser window
+SelectVersion_WindowTitle=Wähle Version zum Verschieben aus
+# LOCALIZATION NOTE: here, "preview" is a noun, not a verb
+Preview_Column=Vorschau
+DateTime_Column=Datum/Zeit
+# LOCALIZATION NOTE: this column contains the "height x width (xyz bytes)" data
+Dimensions_Column=Maße
+UserName_Column=Benutzer
+# LOCALIZATION NOTE: this is the upload log summary
+Comment_Column=Kommentar
+# LOCALIZATION NOTE: for technical reasons this is split across three lines;
+#                    if you don't require all three lines leave the unneeded ones
+#                    blank (but don't delete the line).
+FailedToGenerateThumbnail1_Label=Schaffte es nicht
+FailedToGenerateThumbnail2_Label=generieren
+FailedToGenerateThumbnail3_Label=Miniaturbild
+
+# EXIF viewer window
+ExifViewer_WindowTitle=Zeige EXIF-Metadaten
+# LOCALIZATION NOTE: followed by "current/old version" then timestamp
+ExifDataForVersion_Label=EXIF-Metadaten der gewählten Bearbeitung:
+Name_Column=Name
+Value_Column=Wert
+# LOCALIZATION NOTE: "close" is a verb here
+Close_Button=Schließen
+EXIFFailedNotice=Hinweis
+EXIFFailedMessage=Nicht alle Metadaten konnten angezeigt werden.
+
+# Messages (error, etc.)
+Welcome1=Willkommen zu For the Common Good.
+# LOCALIZATION NOTE: do not translate "Base64"
+Welcome2=Die nächste Seite wird nach den Loginangaben für dein Benutzerkonto fragen. Wenn du wählst sie auf deinem Computer zu speichern, wird dein Passwort nicht als Text sondern in Base64 kodiert gespeichert (nicht sicher!) Denk daran.
+NowCommonsPotentialProblem=Die Datei ist mit {{now Commons}} markiert und wurde wahrscheinlich schon verschoben.
+ChangeIfNotOwnWork=Ändere dies wenn es nicht dein eigenes Werk ist
+Loading=Lädt...
+AlreadyCommons=Die Datei befindet sich schon auf Commons, kann nichts machen
+ImageMissing=Datei existiert nicht auf dem lokalen Wiki
+NoFile=Es scheint ein Problem zu geben, vielleicht ist die Datei eine Weiterleitung.
+FailedToDownload=Herunterladen der Datei missglückt, versuche es später noch einmal.
+FailedToReadTextFile=Konnte nicht die Texdatei "{0}" lesen. Klick auf die Option "Andere Quelle..." um eine andere Datei zu wählen.
+NoMoreFiles=Die Kategorie ist leer. Vielleicht hast du sie falsch buchstabiert... oder aber der Backlog ist endlich leer :)
+RandomCacheEmpty1=Keine Dateien im zufälligen Cache mehr. Klicke noch einmal auf "Zufällige Datei" um weitere Dateien auszuwählen.
+RandomCacheEmpty2=(Dies kann aufgrund der Möglichkeit von niemals endenden Wiederholungen nicht automatisch getan werden.)
+# LOCALIZATION NOTE: This is an instruction to the user ("please do not do it!"), not an option that can be chosen.
+RandomCacheEmpty3=Verschiebe nicht die momentan gezeigte Datei.
+PotentialProblemsGoAhead=Diese Datei enthält mögliche Probleme, die die Verschiebung erschweren oder verhindern. Möchtest du die Datei weiterhin nach Commons verschieben?
+StillDownloading=Die Datei wurde noch nicht heruntergeladen. Versuche es erneut in wenigen Augenblicken.
+OldVersionTransferAdvice=Du bist dabei eine alte Version dieser Datei zu verschieben. Du bist genötigt den "ursprünglichen Hochladelog" manuell aufzuräumen. Klick auf Abbrechen und tu dies (oder klicke auf OK wenn du es schon getan hast).
+FilenameClash=Eine Datei mit demselben Namen existiert bereits auf Commons.
+Warnings1=Die folgenden Warnungen wurden gefunden:
+Warnings2=Wenn du die Datei weiterhin hochladen möchtest, wähle die Einstellung "Ignoriere Warnungen" und versuche es erneut.
+# LOCALIZATION NOTE: this uses .NET timestamp formatting. For assistance, consult User:This, that and the other.
+LogFileTimestampFormat=HH:mm, d MMMM yyyy
+LogFileWriteFailed=Konnte nicht in der Log-Datei schreiben.
+LocalFileDeleted=Die Datei scheint auf deinem lokalen Wiki gelöscht worden zu sein. Nicht sicher was gerade los ist.
+# LOCALIZATION NOTE: this one should end with a colon.
+NowCommonsFailed=Erfolgreich bis auf Einfügen des Tags {{now commons}} in die lokale Datei:
+AlreadyDeleted=Es scheint dass die lokale Datei schon gelöscht wurde.
+# LOCALIZATION NOTE: this one should end with a colon.
+FailedPlus=Missglückte:
+# LOCALIZATION NOTE: sense here is "it seems that all is well, but that might not be the case - I don't know".
+#                    Don't translate as "success", since it isn't guaranteed success.
+LooksGood=Finde es sieht gut aus.
+# LOCALIZATION NOTE: probably do not translate "Partial Trust" - it is .NET jargon - but do translate "scenario"
+LinkVisitFailed=Kann den Link nicht öffnen - Du musst FtCG lokal laufen lassen und nicht als "Partial Trust".
+# LOCALIZATION NOTE: if I didn't have a sense of humour this would read:
+#                    "You did not select a version to transfer. Please select only one item from the list before clicking OK."
+NoRevisionSelected=Jetzt geh zurück und wähle eine(!) Datei.
+NewVersionTitle=Neue Versionen sind verfügbar
+NewVersionNotice1=Eine neue Version ({0}) von For the Common Good ist verfügbar.
+# LOCALIZATION NOTE: {0} will be replaced with the URL of the download site
+NewVersionNotice2=Es wird empfohlen {0} zu besuchen und es herunterzuladen.
+# LOCALIZATION NOTE: The text of NewVersionNoticeWatchLink will be inserted at {0} (the separate
+#                    string is needed to allow the creation of a clickable link)
+NewVersionNotice3=Du kannst die Suche nach Updates unter Einstellungen blockieren, wenn du dies tust bitte {0}.
+# LOCALIZATION NOTE: for non-English languages, please specify that WT:FTCG is on English Wikipedia
+NewVersionNoticeWatchLink=beobachte WT:FTCG (in der englischen Wikipedia)
+TextFileAutoClean=For the Common Good kann Einträge von der Textdatei entfernt, bis zum zuletzt bearbeiteten Eintrag.
+SaveChanges=Möchtest du die Änderungen nach "{0}" speichern?
+TextFileSaveFailed=Speichern der Textdatei missglückt.
+LightboxFailed=Konnte keinen Leuchtkasten erstellen. Vielleicht ist die Datei im SVG-Format - kann für diese im Moment keine Vorschau generieren.
+ReadSettingsError=Beim Versuch die Einstellungsdatei zu lesen ist ein Fehler aufgetreten.
+SaveSettingsError=Beim Versuch die Einstellungsdatei zu speichern ist ein Fehler aufgetreten.
+LocalWikiDataLoadFailed=Konnte die Datei aus dem lokalen Wiki nicht laden. Bitte versichere dich dass alle Eingaben gültig und korrekt geschrieben sind.
+FileNotFoundLocal=Die Datei "{0}" konnte nicht gefunden werden.
+LocalWikiDataWrongDomain=Die von dir gewählte Datei ist für die Benutzung in {0} vorgesehen. Es wird vorgeschlagen dass du die "lokales Wiki"-Option veränderst.
+LocalWikiDataReset=Die von dir gewählte Datei ist für die Benutzung auf der englischen Wikipedia (en.wikipedia) vorgesehen. Für optimale Leistung solltest du die "lokales Wiki"-Option auf "en.wikipedia" einstellen.
+ParsePageFailed=Konnte die Vorschau nicht abrufen.
+# LOCALIZATION NOTE: {0} is the TalkPage localized string, {1} is something like " (1,234 bytes)"
+ContentOnTalkPage=Die Datei hat eine {0}{1} - kopiere diese manuell wenn benötigt.
+TalkPage=Diskussionsseite
+
+# Network errors
+MorebitsDotNet_LoginFailure=Login missglückt: {0}
+MorebitsDotNet_NetRequestFailure=Konnte keine Verbindung zum Internet herstellen.
+MorebitsDotNet_UnknownLoginFailure=Unbekannter Fehler beim Einloggen.
+MorebitsDotNet_ApiError=Ein API-Fehler ist aufgetreten.
+
+# Welcome text, shown in left-hand text box on startup
+# LOCALIZATION NOTE: this string should be no longer than 54 characters.
+WelcomeToFtcg_Title=Willkommen zu For the Common Good!
+# LOCALIZATION NOTE: each of these strings should be no longer than 62 characters. If you need to, 
+#                    you can use the extra line/s provided (blank in English, because we don't need them, 
+#                    but they will work if you fill them in).
+#                    Do not delete any blank entries though!!
+WelcomeToFtcg_IsGood1=Es ist ein tolles Werkzeug um Dateien nach Commons zu 
+WelcomeToFtcg_IsGood2=verschieben.
+WelcomeToFtcg_GetStarted1=Um mit dem Verschieben zu beginnen, entweder
+WelcomeToFtcg_GetStarted2=1. schreibe den Namen einer Datei zum Verschieben 
+# LOCALIZATION NOTE: GetStarted3 must be no longer than 59 characters
+WelcomeToFtcg_GetStarted3=und klicke auf "Los", oder
+WelcomeToFtcg_GetStarted4=2. klicke auf "Zufällige Datei" um aus einer 
+# LOCALIZATION NOTE: GetStarted5 must be no longer than 59 characters
+WelcomeToFtcg_GetStarted5=gewählten Kategorie zu verschieben.
+# LOCALIZATION NOTE: "Transfer" should be the same as the "Transfer_Button" string
+WelcomeToFtcg_NotABludge1=WICHTIG: FtCG macht nicht alle Arbeit für dich.
+WelcomeToFtcg_NotABludge2=Du *must* den "automatisch generierten" Wikitext im 
+WelcomeToFtcg_NotABludge3=Feld unten rechts aufräumen bevor du auf 
+WelcomeToFtcg_NotABludge4="Verschieben klickst".
+WelcomeToFtcg_NotABludge5=
+# LOCALIZATION NOTE: a breezy salutation to make people happy
+WelcomeToFtcg_Enjoy=Erlebe und genieße!
