@@ -1,0 +1,171 @@
+﻿# For the Common Good
+# Local wiki data for Persian Wikipedia
+
+# After modifying this file, you must import it into FtCG again to see the changes.
+
+
+# This should be the web address of your wiki, without ".org"
+LocalDomain=fa.wikipedia
+
+# If there is a page describing FtCG on your wiki, put its name here
+# If not, just keep the following value
+LocalFtcgPage=w:en:WP:FTCG
+
+# Three preset categories to appear at the top of the window
+# If you don't have three, just remove the unneeded ones
+Category1=تصاویر نامزد انتقال به انبار
+Category2=تصاویر نامزد انتقال به انبار (تشخیص ربات)
+DefaultCategory=1
+
+# The name of the "Category" namespace on your local wiki, without the colon
+# (since the English name "Category" works on all wikis, you don't need to include 
+# it here - FtCG handles it)
+CategoryNamespace=رده
+
+# The local name for the "now Commons" template, indicating that the local copy of
+# an image should be deleted after transfer
+NowCommonsTag=موجود در انبار
+
+# The deletion summary used when deleting a file after transfer (option available
+# to admins only) - link to a relevant deletion policy if possible
+NowCommonsDeletionSummary=[[وپ:محس#پ۸|پ۸]]:تصویر موجود در ویکی‌انبار
+
+# Some edit summaries to translate into your wiki's language
+NowCommonsAddingTagEditSummary=برچسپ {{موجود در انبار}} افزوده شد
+NowCommonsReplacingTagEditSummary=برچسپ {{انتقال به ویکی‌انبار}} با {{موجود در انبار}} جایگزین شد
+
+
+# IMPORTANT: All entries from here onwards are treated as regular expressions.
+# For normal text entry, this should not be a problem, but when using
+# symbols like ( ) [ ] ? * + | etc., please prefix with a backslash: \( \[ etc.
+
+# Local equivalents of the {{information}} template and its parameters
+# (put the local name SECOND, e.g. Information=Ergojduhd)
+Information=اطلاعات
+Description=توضیحات
+Date=تاریخ
+Source=منبع
+Author=پدیدآور
+Permission=(اجازه‌نامه|اجازه_نامه)
+Other_versions=دیگر[ _]نسخه‌ها
+
+# Section headings in use on the local wiki
+# (put the local name SECOND, e.g. Summary=Quofkokvej)
+Summary=خلاصه|شرح
+Licensing=اجازه‌نامه|اجازه نامه|مجوز
+
+# The regular expression used to detect "Copy to Commons" tags
+# This one is for English Wikipedia
+CopyToCommonsRegex={{(انتقال به ویکی‌انبار|Copy to Wikimedia Commons|Move to commons|نامزد انتقال به انبار|انتقال به انبار|Copy to wikimedia commons|Copy to Commons|Move to Commons|Copy to commons|CtC)[^}]*}}\n?
+
+
+# If you aren't technically confident, stop here and delete everything from here to the end
+# (FtCG will still work!)
+
+
+
+# Potential problems - conditions which may prevent or affect transfer (like deletion templates)
+
+# Notes: - Use IfContains= to search for a string of plain text (case-insensitive)
+#        - Use IfRegex= to match against a regex (case-insensitive)
+# These should be listed in order of importance - most "problematic" first.
+
+[PotentialProblem]
+IfContains={{حذف سریع
+Message=این پرونده به نظر می‌آید که برای حذف سریع برچسپ زده شده.
+
+[PotentialProblem]
+IfRegex={{(do not (copy|move) to commons|نگاره آمریکا مغایر با ویکی‌انبار|به ویکی‌انبار انتقال ندهید)
+Message=این پرونده برچسپ {{به ویکی‌انبار انتقال ندهید}} حورده است.
+
+# ... put as many potential problem sections as needed
+
+
+# Replacements to carry out
+
+# LookFor is a regular expression; ReplaceWith is a "replacement pattern"
+# where $n is the nth "capture" of the regex; for help,
+# visit MSDN or ask User:This, that and the other
+
+# %%OriginalUploader%% and
+# %%InterwikiLinkPrefix%% are special variables supplied by FtCG
+
+[Replacement]
+LookFor={{(مالکیت عمومی)
+ReplaceWith={{PD-because
+
+[Replacement]
+LookFor={{(نگاره آرژانتین|مالکیت عمومی-آرژانتین)
+ReplaceWith={{PD-AR-Photo
+
+[Replacement]
+LookFor={{مالکیت عمومی-آمریکا
+ReplaceWith={{PD-US
+
+[Replacement]
+LookFor={{(نگاره قدیمی افغانستان|مالکیت عمومی-افغانستان)
+ReplaceWith={{PD-Afghanistan
+
+[Replacement]
+LookFor={{(PD-Italia|نگاره ایتالیا|مالکیت عمومی-ایتالیا)
+ReplaceWith={{PD-Italy
+
+[Replacement]
+LookFor={{(تصویر قدیمی|مالکیت عمومی-ایران|نگاره قدیمی)
+ReplaceWith={{PD-Iran
+
+[Replacement]
+LookFor={{(نگاره بریتانیا|مالکیت عمومی-بریتانیا)
+ReplaceWith={{PD-UK
+
+[Replacement]
+LookFor={{مالکیت عمومی-دولت آمریکا
+ReplaceWith={{PD-USGov
+
+[Replacement]
+LookFor={{(نگاره دولت آمریکا|مالکیت عمومی-دولت بریتانیا)
+ReplaceWith={{PD-UKGov
+
+[Replacement]
+LookFor={{(مالکیت عمومی-وی‌اوای|مالکیت عمومی-صدای آمریکا|مالکیت عمومی-صدای آمریکا)
+ReplaceWith={{PD-USGov-VOA
+
+[Replacement]
+LookFor={{(نگاره عراقی|مالکیت عمومی-عراق)
+ReplaceWith={{PD-Iraq
+
+[Replacement]
+LookFor={{(نگاره مصری|مالکیت عمومی-مصر)
+ReplaceWith={{PD-Egypt
+
+[Replacement]
+LookFor={{(نگاره ناسا|مالکیت عمومی-ناسا)
+ReplaceWith={{PD-USGov-NASA
+
+[Replacement]
+LookFor={{(نگاره نوشتاری|مالکیت عمومی-نوشتار)
+ReplaceWith={{PD-textlogo
+
+[Replacement]
+LookFor={{(نگاره هابل|مالکیت عمومی-هابل)
+ReplaceWith={{PD-Hubble
+
+[Replacement]
+LookFor={{(نگاره پاکستانی|مالکیت عمومی-پاکستان)
+ReplaceWith={{PD-Pakistan
+
+# Replacements of self-license tags, like PD-self, GFDL-self
+
+# These use the same format as "Replacements" above
+
+[SelfLicenseReplacement]
+LookFor={{(?:PD-self|مالکیت عمومی-خود)([^\}]*)}}
+ReplaceWith={{PD-user|%%OriginalUploader%%|fa}}
+
+[SelfLicenseReplacement]
+LookFor={{(?:GFDL-self|مجوز گنو-خود|SELF-GNU|گنو-خود)([^\}]*)}}
+ReplaceWith={{GFDL-self|%%OriginalUploader%%$1}}
+
+[SelfLicenseReplacement]
+LookFor={{(?:self|self2|خود)([^\}]*)}}
+ReplaceWith={{self$1|author=[[%%InterwikiLinkPrefix%%:%%OriginalUploader%%|]]}}
