@@ -93,4 +93,4 @@ ReplaceWith={{GFDL-user|%%OriginalUploader%%|b$1}}
 
 [SelfLicenseReplacement]
 LookFor={{self([^\}]*)}}
-ReplaceWith={{self$1|author=[[%%InterwikiLinkPrefix%%:%%OriginalUploader%%|]]}}
+ReplaceWith={{self$1|author=[[%%InterwikiLinkPrefix%%:User:%%OriginalUploader%%|]]}}
