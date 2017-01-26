@@ -25,8 +25,8 @@ Description=Descriere
 Date=Data
 Source=Sursa
 Author=Autor
-Permission=Licență
-Other_versions=Altele
+Permission=Permisiune
+Other_versions=alte_versiuni
 
 Summary=Descriere
 Licensing=Licențiere|Licență
