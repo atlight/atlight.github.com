@@ -29,7 +29,7 @@ Permission=Лицензия
 Other_versions=Прочее
 
 Summary=Краткое описание
-Licensing=Лицензирование
+Licensing=Лицензирование|Лицензия
 
 CategoryNamespace=Категория
 
