@@ -1,0 +1,66 @@
+<!doctype html>
+<script>
+function geolocateSuccess(position) {
+	var result = "";
+	
+	result +=   "Updated at " + new Date().toLocaleString('en-AU') + "\n";
+	result += "\nTimestamp:  " + new Date(position.timestamp).toLocaleString('en-AU');
+	result += "\nLatitude:   " + JSON.stringify(position.coords.latitude);
+	result += "\nLongitude:  " + JSON.stringify(position.coords.longitude);
+	result += "\nAccuracy:   " + JSON.stringify(position.coords.accuracy);
+	result += "\nAltitude:   " + JSON.stringify(position.coords.altitude);
+	result += "\nAlt. acc.:  " + JSON.stringify(position.coords.altitudeAccuracy);
+	result += "\nHeading:    " + JSON.stringify(position.coords.heading);
+	result += "\nSpeed:      " + JSON.stringify(position.coords.speed);
+	document.getElementById("output").textContent = result;
+}
+
+function geolocateError(positionError) {
+	var result = "Updated at " + new Date().toLocaleString('en-AU') + "\n*** ERROR ***\n";
+	switch (positionError.code) {
+		case positionError.PERMISSION_DENIED:
+			result += "PERMISSION_DENIED";
+			break;
+		case positionError.POSITION_UNAVAILABLE:
+			result += "POSITION_UNAVAILABLE";
+			break;
+		case positionError.TIMEOUT:
+			result += "TIMEOUT";
+			break;
+		default:
+			result += "Unrecognised error type " + positionError.code;
+			break;
+	}
+	document.getElementById("output").textContent = result + "\n" + positionError.message;
+	console.error(positionError);
+}
+
+function geolocate() {
+	if (!("geolocation" in navigator)) {
+		alert("Geolocation is not available from this browser.");
+		return;
+	}
+	navigator.geolocation.getCurrentPosition(geolocateSuccess, geolocateError, {
+		maximumAge: 1,
+		enableHighAccuracy: true
+	});
+}
+
+var interval = null;
+function init() {
+	geolocate();
+	document.getElementById("watchPosition").addEventListener("change", function(e) {
+		if (interval !== null) {
+			window.clearInterval(interval);
+		}
+		if (e.target.checked) {
+			interval = window.setInterval(geolocate, 1000);
+		}
+	});
+}
+
+window.addEventListener("load", init);
+</script>
+<p><label><input type="checkbox" id="watchPosition"> Update position every second</label></p>
+<pre id="output">
+</pre>
