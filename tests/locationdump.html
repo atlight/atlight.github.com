@@ -41,7 +41,7 @@ function geolocate() {
 		return;
 	}
 	navigator.geolocation.getCurrentPosition(geolocateSuccess, geolocateError, {
-		maximumAge: 1,
+		maximumAge: 0,
 		enableHighAccuracy: true
 	});
 }
@@ -54,13 +54,13 @@ function init() {
 			window.clearInterval(interval);
 		}
 		if (e.target.checked) {
-			interval = window.setInterval(geolocate, 1000);
+			interval = window.setInterval(geolocate, 5000);
 		}
 	});
 }
 
 window.addEventListener("load", init);
 </script>
-<p><label><input type="checkbox" id="watchPosition"> Update position every second</label></p>
+<p><label><input type="checkbox" id="watchPosition"> Update position every 5 seconds</label></p>
 <pre id="output">
 </pre>
