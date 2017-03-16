@@ -1,0 +1,20 @@
+<!doctype html>
+<script>
+function check() {
+	fetch('net.txt').then(function(response) {
+		var text = new Date().toLocaleString('en-AU');
+		// we really only care whether the response succeeded or not
+		if (response.ok) {
+			text += "  OK";
+		} else {
+			text += "  FAILED";
+		}
+		
+		var oldTextContent = document.getElementById("log").textContent
+		document.getElementById("log").textContent = text + "\n" + oldTextContent;
+	});
+}
+
+window.setInterval(check, 5000);
+</script>
+<pre id="log"></pre>
