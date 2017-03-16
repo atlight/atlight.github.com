@@ -1,7 +1,7 @@
 <!doctype html>
 <script>
 function check() {
-	fetch('net.txt').then(function(response) {
+	fetch('net.txt?' + new Date().getTime()).then(function(response) {
 		var text = new Date().toLocaleString('en-AU');
 		// we really only care whether the response succeeded or not
 		if (response.ok) {
