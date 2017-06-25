@@ -28,7 +28,7 @@ Author=Autor
 Permission=Permisiune
 Other_versions=alte_versiuni
 
-Summary=Descriere
+Summary=Descriere|Descriere fișier
 Licensing=Licențiere|Licență
 
 CategoryNamespace=Categorie
@@ -96,7 +96,11 @@ LookFor={{(PD-user|DP-utilizator)([^\}]*)}}
 ReplaceWith={{PD-user-w|project=wikipedia|language=ro|user=%%OriginalUploader%%}}
 
 [Replacement]
-LookFor== *lucrare proprie.?
+LookFor== *(lucrare|operă) proprie ?
+ReplaceWith== {{own work by original uploader}}
+
+[Replacement]
+LookFor== *self\-made ?
 ReplaceWith== {{own work by original uploader}}
 
 [SelfLicenseReplacement]
