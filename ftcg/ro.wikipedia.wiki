@@ -7,7 +7,7 @@ LocalFtcgPage=w:en:WP:FTCG
 
 Category1=De copiat la Wikimedia Commons
 Category2=Imagini din domeniul public
-Category3=Imagini GFDL‎
+Category3=Imagini GFDL
 DefaultCategory=1
 
 NowCommonsTag=Now Commons
@@ -96,11 +96,11 @@ LookFor={{(PD-user|DP-utilizator)([^\}]*)}}
 ReplaceWith={{PD-user-w|project=wikipedia|language=ro|user=%%OriginalUploader%%}}
 
 [Replacement]
-LookFor== *(lucrare|operă) proprie ?
+LookFor== *(Fotografie|lucrare|operă) proprie *
 ReplaceWith== {{own work by original uploader}}
 
 [Replacement]
-LookFor== *self\-made ?
+LookFor== *self\-made *
 ReplaceWith== {{own work by original uploader}}
 
 [SelfLicenseReplacement]
