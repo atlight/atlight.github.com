@@ -80,7 +80,11 @@ LookFor={{PD-user([^\}]*)}}
 ReplaceWith={{PD-user-w|project=wikipedia|language=ru|user=%%OriginalUploader%%}}
 
 [Replacement]
-LookFor== *собственная работа*.?
+LookFor== *собственная (работа|фотография) *.?
+ReplaceWith== {{own}}
+
+[Replacement]
+LookFor== *(собственное|своё|свое) фото *
 ReplaceWith== {{own}}
 
 [SelfLicenseReplacement]
