@@ -1,0 +1,17 @@
+body {
+	background: white url(/images/large_clouds.png) no-repeat;
+	background-size: 840px;
+	color: black;
+	font: 11pt Verdana, sans-serif;
+}
+
+div.container {
+	box-shadow: 0 0 50px 33px rgba(255, 255, 255, 0.6);
+	background-color: rgba(255, 255, 255, 0.6);
+}
+
+img.saltgrass {
+	float: right;
+	margin: 20px;
+	margin-right: 0;
+}
