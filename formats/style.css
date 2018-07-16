@@ -1,0 +1,12 @@
+body {
+	font: 12pt Calibri, Droid Sans, Noto Sans, sans-serif;
+}
+
+div.container {
+	box-shadow: 0 0 50px 33px rgba(255, 255, 255, 0.6);
+	background-color: rgba(255, 255, 255, 0.6);
+}
+
+a > code {
+	color: inherit;
+}

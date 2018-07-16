@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Demystifying DXF: LEADER and MULTILEADER (MLEADER) implementation notes</title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body><div class="container">
+<h1>
+<a id="demystifying-dxf-leader-and-multileader-implementation-notes" class="anchor" href="#demystifying-dxf-leader-and-multileader-implementation-notes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demystifying DXF: LEADER and MULTILEADER implementation notes</h1>
+
+<ul>
+<li>
+<a href="#introduction">Introduction</a>
+<ul>
+<li><a href="#my-implementation">My implementation</a></li>
+</ul>
+</li>
+<li>
+<a href="#leader">LEADER</a>
+<ul>
+<li><a href="#the-hook-line">The hook line</a></li>
+<li><a href="#splines">Splines</a></li>
+<li><a href="#leaders-are-legacy">LEADERs are legacy</a></li>
+</ul>
+</li>
+<li>
+<a href="#multileader">MULTILEADER</a>
+<ul>
+<li><a href="#sources-of-information">Sources of information</a></li>
+<li><a href="#structure">Structure</a></li>
+<li><a href="#entity-handles">Entity handles</a></li>
+<li>
+<a href="#geometry">Geometry</a>
+<ul>
+<li><a href="#calculating-the-dogleglanding">Calculating the dogleg/landing</a></li>
+<li><a href="#breaks">Breaks</a></li>
+</ul>
+</li>
+<li>
+<a href="#content">Content</a>
+<ul>
+<li><a href="#text-content">Text content</a></li>
+<li><a href="#block-content">Block content</a></li>
+</ul>
+</li>
+<li><a href="#colors">Colors</a></li>
+<li><a href="#extrusions-ocs">Extrusions (OCS)</a></li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
+<p>As part of my work on the <a href="http://gdal.org/drv_dxf.html">DXF driver</a> in the open-source Geospatial Data Abstraction Library (<a href="http://gdal.org" rel="nofollow">GDAL</a>), I was tasked with the job of implementing support for leader elements.</p>
+<p>For those unfamiliar with CAD, leaders are essentially arrows emanating from a text label or symbol, serving to point out some important aspect of the drawing.</p>
+<p><a href="images/leader-demo.png" target="_blank"><img src="images/leader-demo.png" alt="LEADER demo" style="max-width:100%;"></a></p>
+<p>AutoCAD offers two different kinds of leader objects:</p>
+<ul>
+<li>The "classic" LEADER entity has been part of AutoCAD since the early days, and shares a lot in common with the DIMENSION entity, including a common styling infrastructure (DIMSTYLE and the override system). The documentation for LEADER in the DXF specification is reasonably comprehensive; see the section below.</li>
+<li>The MULTILEADER entity, perhaps better known to AutoCAD users as MLEADER (the name of the command), was introduced in AutoCAD 2008. You can conceptualise it as a strange combination of MTEXT, INSERT, ATTRIB and LWPOLYLINE with enough secret sauce poured on top that you're never really quite sure what's going on. MULTILEADER is one of the worst-documented DXF entities; the description in the DXF spec is next to useless. See below for some tips on how to get it implemented in your project.</li>
+</ul>
+<p>I hope these notes, which are intended to supplement the <a href="http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3">DXF specification</a>, will help those who need to interact with the DXF format programmatically but have limited AutoCAD knowledge, or possibly even no access to the software. I assume a basic level of familiarity with the DXF format.</p>
+<h3>
+<a id="my-implementation" class="anchor" href="#my-implementation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>My implementation</h3>
+<p><a href="https://github.com/OSGeo/gdal/blob/master/gdal/ogr/ogrsf_frmts/dxf/ogrdxf_leader.cpp">Here</a> is the C++ code of the DXF LEADER and MULTILEADER translator that I developed for GDAL/OGR. It should not be too difficult to read most of that code even if you're completely unfamiliar with OGR or GDAL. And <a href="https://github.com/OSGeo/gdal/blob/master/autotest/ogr/data/leader-mleader.dxf">here</a> is a demo DXF file with all kinds of different LEADER and MULTILEADER objects which you can use to test your implementation.</p>
+<h2>
+<a id="leader" class="anchor" href="#leader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LEADER</h2>
+<p>The LEADER entity represents an arrow, made up of one or more vertices (or spline fit points) and an arrowhead. The label or other content to which the LEADER is attached is stored as a separate entity, and is not part of the LEADER itself.</p>
+<p>As noted above, LEADER shares its styling infrastructure with DIMENSION. To style these entities correctly, you begin with the styling properties of the selected dimension style, then apply any overrides indicated in the entity itself. The DXF spec provides an example.</p>
+<p>Compared to the sprawling complexity of DIMENSION, rendering a simple LEADER entity is easy. It is simply a matter of connecting the vertices by straight line segments and attaching an arrowhead at the end (<a href="https://knowledge.autodesk.com/support/autocad/troubleshooting/caas/sfdcarticles/sfdcarticles/Cannot-see-leader-arrowheads.html">in most cases</a>). The only difficulty is the "hook line" feature, described in the following section.</p>
+<h3>
+<a id="the-hook-line" class="anchor" href="#the-hook-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The hook line</h3>
+<p>If the DIMTAD dimension style property ("Text pos vert" in AutoCAD's Properties pane) is set to anything other than "Centered" (0), the leader line extends beneath the text. This extension is known as a "hook line".</p>
+<p><a href="images/leader-dimtad.png" target="_blank"><img src="images/leader-dimtad.png" alt="LEADER DIMTAD" style="max-width:100%;"></a></p>
+<p>Unfortunately, the endpoint of this hook line is not stored in the DXF file. We have to calculate it using the (211,221,231) direction vector, the text width stored in group code 41, and a "flip" boolean in group code 74. The calculation, written in pseudocode, is as follows (<code>gc</code> stands for "group code"):</p>
+<pre><code>if ( DIMTAD != 0 &amp;&amp; gc73 == 0 &amp;&amp; gc41 &gt; 0 &amp;&amp; count(vertices) &gt;= 2 )
+{
+    directionVector = (gc211, gc221, gc231) or (1.0, 0.0, 0.0) if the group codes are not present
+    if ( gc74 == 1 )
+        directionVector = -directionVector
+    
+    lastVertex = the last (gc10, gc20, gc30) present  
+    vertices.append( lastVertex + ( DIMGAP * DIMSCALE + gc41 ) * directionVector )
+}
+</code></pre>
+<p>This code flips the direction vector when group code 74 is 1, contrary to what the DXF spec appears to say. I assume the spec is wrong on this, since it doesn't match AutoCAD's behaviour.</p>
+<h3>
+<a id="splines" class="anchor" href="#splines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Splines</h3>
+<p>You might also wonder how to render spline LEADERs. The DXF documentation mentions that LEADERs are rendered as splines when group code 72 is set to 1, but it doesn't give any detail.</p>
+<p>As far as I can tell, the recipe is like this:</p>
+<ul>
+<li>The "vertices" of the LEADER are treated as equally-weighted fit points of a degree 3 spline. ALL OF THEM?????????????????????</li>
+<li>The spline is periodic but not planar or closed.</li>
+<li>The fit tolerance is 0.</li>
+<li>The start and end tangent directions are the directions in which the first and last line segment of the leader (including the hook line, if any) would run if the leader was rendered in "line" mode.</li>
+<li>If an arrowhead is present, the final fit point seems to be located at the back of the arrowhead. This point is not given in the DXF data, so you would have to come up with a way to work it out. I decided to ignore this detail in my implementation and just use the given final vertex as the last fit point.</li>
+</ul>
+<p>Bear in mind that the vertices are treated as fit points. Elsewhere in the DXF format, splines are generated from control points, so you may need to adjust your logic.</p>
+<h3>
+<a id="leaders-are-legacy" class="anchor" href="#leaders-are-legacy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LEADERs are legacy</h3>
+<p>Autodesk seems to be very firmly treating LEADER and QLEADER as a legacy feature. The <a href="https://knowledge.autodesk.com/support/autocad/learn-explore/caas/CloudHelp/cloudhelp/2016/ENU/AutoCAD-Core/files/GUID-BC466DEE-ACD8-419A-B017-AB3065336AD7-htm.html">LEADER user documentation</a> recommends that users switch to the MLEADER workflow, and the default AutoCAD toolbars do not contain a button to insert a LEADER. The reality is, unless you can get all your users to downsave their drawings to pre-2008 DXF versions, you are going to need MULTILEADER support in your DXF reader.</p>
+<h2>
+<a id="multileader" class="anchor" href="#multileader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MULTILEADER</h2>
+<p>This is where the fun begins. MULTILEADERs differ from LEADERs in a number of important ways:</p>
+<ul>
+<li>MULTILEADERs have nothing to do with DIMENSIONs or LEADERs at all. In particular, they don't use the DIMSTYLE infrastructure. There is a parallel styling system known as MLEADERSTYLE, but if you only need to read DXF files and not write them, you can safely ignore it. This is because, unlike LEADER where only style overrides are stored in the entity, all the styling properties are stored in the MULTILEADER entity itself.</li>
+<li>The content of the MULTILEADER (the text label or block) is described using group codes incorporated into the MULTILEADER entity, rather than being stored as its own separate entity. This is conceptually similar to how DIMENSIONs incorporate the dimension text.</li>
+<li>MULTILEADERs can have zero or more <strong>leader lines</strong>, grouped into zero, one or two <strong>leaders</strong>. Styling properties are applied to all leader lines; for example, it's not possible to style leader lines in different colours.</li>
+</ul>
+<p><a href="images/mleader-parts-annot.png" target="_blank"><img src="images/mleader-parts-annot.png" alt="MLEADER anatomy" style="max-width:100%;"></a></p>
+<ul>
+<li>Instead of the LEADER "hook line", MULTILEADER leaders have a "dogleg" (referred to as a "landing" in the AutoCAD UI), which is essentially the common final segment of the leader before it reaches the content.</li>
+<li>The documentation in the DXF spec is appalling. It gets off to an inauspicious start when it refers to the entity as "MLEADER" when AutoCAD's DXF writer actually outputs the name MULTILEADER, and it never really improves from there.</li>
+</ul>
+<h3>
+<a id="sources-of-information" class="anchor" href="#sources-of-information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sources of information</h3>
+<p>The DXF spec is only one place to look for information on MULTILEADER.</p>
+<p>You should also look at the <a href="http://help.autodesk.com/view/OARX/2018/ENU/?guid=OREF-AcDbMLeader">ObjectARX documentation for <code>AcDbMLeader</code></a>, the C++ class used internally by AutoCAD to represent MULTILEADERs. The DXF representation of MULTILEADER is essentially a spewing-out of the data in this class, much more so than for other entities, so this documentation is especially valuable. For example, the <a href="http://help.autodesk.com/view/OARX/2018/ENU/?guid=OREF-AcDbMLeader__leaderLineType" rel="nofollow">page on <code>AcDbMLeader::leaderLineType()</code></a> states that this function returns the leader line type as a <a href="http://help.autodesk.com/view/OARX/2018/ENU/?guid=OREF-AcDbMLeaderStyle__LeaderType" rel="nofollow"><code>AcDbMLeaderStyle::LeaderType</code></a> value. From the values of that enum, we now know how to interpret common group code 170!</p>
+<p>The <a href="https://www.opendesign.com/files/guestdownloads/OpenDesign_Specification_for_.dwg_files.pdf">Open Design Alliance reverse-engineer of the DWG format</a>, sections 19.4.46 and 19.4.83, acts as a handy cross-reference. The DWG and DXF formats are so similar in structure that the ODA DWG spec references the DXF group codes where it can. Although the copyright statement is rather stern, you are unlikely to use the document to the extent that copyright becomes a concern.</p>
+<h3>
+<a id="structure" class="anchor" href="#structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Structure</h3>
+<p>Totally missing from the DXF spec is a description of the way the MULTILEADER entity is structured. It is divided into sections by 30x group codes, which always have the text values given below:</p>
+<pre><code>...              // common group codes
+300
+CONTEXT_DATA{
+  ...            // context data group codes
+  302
+  LEADER{
+    ...          // leader group codes (referred to as "Leader Node" in the DXF spec)
+    304
+    LEADER_LINE{
+      ...        // leader line group codes
+    305
+    }
+    304
+    LEADER_LINE{
+      ...        // leader line group codes
+    305
+    }
+    ...          // further leader group codes
+  303
+  }
+  302
+  LEADER{
+    ...          // leader group codes with leader line section(s)
+  303
+  }
+  ...            // further context data group codes
+301
+}
+...              // further common group codes
+</code></pre>
+<p>There could be zero or more leader or leader line sections. Group codes have different meanings depending on the section they appear in (the DXF spec got this bit right).</p>
+<h3>
+<a id="entity-handles" class="anchor" href="#entity-handles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Entity handles</h3>
+<p>The MULTILEADER entity refers to other DXF objects by their handle, not by their name. Even text styles and ATTDEF entities, which are always referred to by name in other entities, are referenced by their handle. Common group codes 342, 344 and 330, and context data group codes 340 and 341, are all handle references.</p>
+<h3>
+<a id="geometry" class="anchor" href="#geometry" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Geometry</h3>
+<p>There are three types of vertices in a MULTILEADER:</p>
+<ul>
+<li>The ordinary vertices that make up the leader line, given by a sequence of (10,20,30) group codes in the leader line section.</li>
+<li>The landing point of the leader, given by (10,20,30) group codes in the leader section.</li>
+<li>The dogleg endpoint, which you must calculate -- see below.</li>
+</ul>
+<p><a href="images/mleader-vertex-types-annot.png" target="_blank"><img src="images/mleader-vertex-types-annot.png" alt="MLEADER vertices" style="max-width:100%;"></a></p>
+<p>Depending on the value of common group code 170, a MULTILEADER may be straight (1), spline (2) or "none" (0). Straight rendering simply involves joining relevant vertices of each leader line and providing a dogleg, interrupting the lines at breaks. Spline rendering is done in the same way as LEADER (see <a href="#splines">above</a>). "None" means that the leaders are not rendered at all - only the content (text or block) is to be shown.</p>
+<h4>
+<a id="calculating-the-dogleglanding" class="anchor" href="#calculating-the-dogleglanding" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Calculating the dogleg/landing</h4>
+<p>As with LEADER, some calculations must be performed to find the entire geometry. This involves establishing whether a dogleg needs to be drawn, and if so, calculating the endpoint of the dogleg.</p>
+<p>The dogleg endpoint is simply calculated as landing point + (dogleg length * dogleg direction vector).</p>
+<p>For a particular leader within the MULTILEADER, a dogleg is drawn if:</p>
+<ul>
+<li>the MULTILEADER has doglegs enabled (common group code 291 is nonzero) <em>and</em>
+</li>
+<li>the MULTILEADER is straight (common group code 170 is 1) <em>and</em>
+</li>
+<li>the dogleg length (leader group code 40) is nonzero <em>and</em>
+</li>
+<li>the dogleg direction vector (leader group codes (11,21,31)) is not a zero vector.</li>
+</ul>
+<p>If the dogleg is not drawn, the dogleg endpoint still must be calculated, because in this case, the landing point is ignored and the leader lines terminate at the dogleg endpoint instead.</p>
+<p><a href="images/mleader-dogleg-on-off-annot.png" target="_blank"><img src="images/mleader-dogleg-on-off-annot.png" alt="MLEADER dogleg on/off" style="max-width:100%;"></a></p>
+<h4>
+<a id="breaks" class="anchor" href="#breaks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Breaks</h4>
+<p>Straight MULTILEADER leader lines can be "broken" to avoid intersections with other linework in the drawing. Each break (also known as DIMBREAK, from the AutoCAD command) is stored as a pair of points. The break (gap in the line) begins at the first point and ends at the second point.</p>
+<p><a href="images/mleader-break-crop.png" target="_blank"><img src="images/mleader-break-crop.png" alt="MLEADER breaks" style="max-width:100%;"></a></p>
+<p>The breaks that lie between vertex <em>n</em> and vertex <em>n</em> + 1 are stored after vertex <em>n</em> in the leader line section. Leader line group codes (11,21,31) give the start point and codes (12,22,32) give the end point. The 11,21,31,12,22,32 sequence is repeated for each break in that particular segment of the leader line.</p>
+<p>Breaks in the dogleg are stored as part of the leader section. The start of a break is given by leader group codes (12,22,32) and the end by (13,23,33), which may be repeated in the same way.</p>
+<p>Breaks are not used in spline MULTILEADERs.</p>
+<h3>
+<a id="content" class="anchor" href="#content" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Content</h3>
+<p>Common group code 172 determines whether the MULTILEADER has text content (2), block content (1), or no content (0).</p>
+<h4>
+<a id="text-content" class="anchor" href="#text-content" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Text content</h4>
+<p>In AutoCAD, the text content of a MULTILEADER is internally represented as an <code>AcDbMText</code> (MTEXT) data member belonging to the <code>AcDbMLeader</code> class. Although the group codes are different, there is a good chance you will be able to share code between your implementations of MTEXT and MLEADER.</p>
+<p>The text is anchored at the point given by context data group codes (12,22,32), corresponding to MTEXT group codes (10,20,30).</p>
+<p>Where the same value appears in both the common and context data sections (for example, text color), AutoCAD uses the value given in the context data section.</p>
+<h4>
+<a id="block-content" class="anchor" href="#block-content" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Block content</h4>
+<p>Instead of text, a MULTILEADER may have a block reference as its content. The common group code 344 stores the handle of a BLOCK_RECORD. Your renderer should insert this block at the position given by context data group codes (15,25,35). The DXF spec lists some other parameters in the context data section (block normal direction, block scale, and block rotation) which are interpreted as for INSERT. There doesn't appear to be a way to set a specific block color for a multileader in AutoCAD, so I don't know what 93 is for.</p>
+<p>The group code 47 appears 16 times to give some kind of matrix. Since the last four values seem to always be zero, I assume this is a 3D affine transformation, but it is unclear why this matrix is provided when the rotation, scale and translation are also independently present. In my implementation I have chosen to ignore this matrix, because I assume it's only useful when extrusions are in the picture, and I don't wish to support extrusions of MULTILEADERs for the time being.</p>
+<p>Block attributes are stored very differently in MULTILEADER entities compared to an ordinary INSERT. The <em>handle</em> (not the name) of the relevant ATTDEF is given in common group code 330, followed by an index (177), a "width" of some kind (44), and the value of the attribute (302). This sequence of four codes is repeated as required. If you are writing a DXF converter, chances are you have chosen to strip out ATTDEF entities; you will clearly need to reconsider this so you can render MULTILEADER block attributes.</p>
+<p>A significant amount of my MULTILEADER code in GDAL is taken up processing block attributes. It might seem like a minor and inconsequential feature, but it is actually very important to implement it properly - it is common to see MULTILEADERs which consist of the leader label (say, a key number) enclosed in a circle. This is invariably structured as a block containing a circle and an ATTDEF for the label into which the text needs to be substituted.</p>
+<h3>
+<a id="colors" class="anchor" href="#colors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Colors</h3>
+<p>The overall color of the MULTILEADER is stored in the usual way (62/440 group codes in the common section). But it seems that the developers got lazy for other color values, like common group code 91. The raw value of the <code>RGBM</code> union that is part of the <a href="http://help.autodesk.com/view/OARX/2018/ENU/?guid=OREF-AcCmEntityColor"><code>AcDbEntityColor</code> class</a> is written straight to the DXF as a signed 32-bit integer. As an example, this means that ByBlock is no longer the familiar 0, but instead -1056964608 (0xC1000000).</p>
+<h3>
+<a id="extrusions-ocs" class="anchor" href="#extrusions-ocs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extrusions (OCS)</h3>
+<p>Extrusions, also known as object coordinate systems (OCS), are an aspect of the MULTILEADER entity that I have not explored. If anyone has figured out how these work for MULTILEADER, please feel free to submit an issue or pull request against <a href="https://github.com/atlight/atlight.github.com">this site</a>.</p>
+<hr>
+<p>Alan Thomas<br>
+<a href="http://www.thinkspatial.com.au">ThinkSpatial</a><br>
+<a href="mailto:athomas@thinkspatial.com.au">athomas@thinkspatial.com.au</a><br>
+July 2018</p>
+<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+<hr>
+<p><a href="/">Back to Alan Thomas' home page</a></p>
+
+</div></body>
+</html>
