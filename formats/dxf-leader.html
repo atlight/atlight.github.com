@@ -90,7 +90,7 @@
 <p>You might also wonder how to render spline LEADERs. The DXF documentation mentions that LEADERs are rendered as splines when group code 72 is set to 1, but it doesn't give any detail.</p>
 <p>As far as I can tell, the recipe is like this:</p>
 <ul>
-<li>The "vertices" of the LEADER are treated as equally-weighted fit points of a degree 3 spline. ALL OF THEM?????????????????????</li>
+<li>The "vertices" of the LEADER are treated as equally-weighted fit points of a degree 3 spline.</li>
 <li>The spline is periodic but not planar or closed.</li>
 <li>The fit tolerance is 0.</li>
 <li>The start and end tangent directions are the directions in which the first and last line segment of the leader (including the hook line, if any) would run if the leader was rendered in "line" mode.</li>
