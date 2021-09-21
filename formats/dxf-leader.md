@@ -41,7 +41,7 @@ I hope these notes, which are intended to supplement the [DXF specification](htt
 
 ### My implementation
 
-[Here](https://github.com/OSGeo/gdal/blob/master/gdal/ogr/ogrsf_frmts/dxf/ogrdxf_leader.cpp) is the C++ code of the DXF LEADER and MULTILEADER translator that I developed for GDAL/OGR. It should not be too difficult to read most of that code even if you're completely unfamiliar with OGR or GDAL. And [here](https://github.com/OSGeo/gdal/blob/master/autotest/ogr/data/leader-mleader.dxf) is a demo DXF file with all kinds of different LEADER and MULTILEADER objects which you can use to test your implementation.
+[Here](https://github.com/OSGeo/gdal/blob/master/gdal/ogr/ogrsf_frmts/dxf/ogrdxf_leader.cpp) is the C++ code of the DXF LEADER and MULTILEADER translator that I developed for GDAL/OGR. It should not be too difficult to read most of that code even if you're completely unfamiliar with OGR or GDAL. And [here](https://github.com/OSGeo/gdal/blob/master/autotest/ogr/data/dxf/leader-mleader.dxf) is a demo DXF file with all kinds of different LEADER and MULTILEADER objects which you can use to test your implementation.
 
 ## LEADER
 
