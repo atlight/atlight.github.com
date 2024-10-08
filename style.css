@@ -1,17 +1,52 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), url(/fonts/OpenSans-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), url(/fonts/OpenSans-Bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Open Sans Italic'), url(/fonts/OpenSans-Italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Open Sans Bold Italic'), url(/fonts/OpenSans-BoldItalic.ttf) format('truetype');
+}
+
 body {
-	background: white url(/images/large_clouds.png) no-repeat;
-	background-size: 840px;
+	background-color: #2b0041;
 	color: black;
-	font: 11pt Verdana, sans-serif;
+	font: 16px/1.5 "Open Sans", sans-serif;
 }
 
 div.container {
-	box-shadow: 0 0 50px 33px rgba(255, 255, 255, 0.6);
-	background-color: rgba(255, 255, 255, 0.6);
+	background-color: white;
+}
+
+@media (min-width: 768px) {
+	div.container {
+		box-shadow: 0 0 70px 40px rgba(255, 255, 255, 0.15);
+		padding: 0 2em 1em;
+	}
 }
 
 img.saltgrass {
 	float: right;
 	margin: 20px;
 	margin-right: 0;
+}
+
+.breadcrumb {
+	background-color: #00004008;
+	margin-top: 1em;
 }
