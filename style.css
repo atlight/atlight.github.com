@@ -24,7 +24,7 @@
 }
 
 body {
-	background-color: #2b0041;
+	background-color: #002941;
 	color: black;
 	font: 16px/1.5 "Open Sans", sans-serif;
 }
@@ -35,7 +35,7 @@ div.container {
 
 @media (min-width: 768px) {
 	div.container {
-		box-shadow: 0 0 70px 40px rgba(255, 255, 255, 0.15);
+		box-shadow: 0 0 70px 40px rgba(255, 255, 255, 0.1);
 		padding: 0 2em 1em;
 	}
 }
