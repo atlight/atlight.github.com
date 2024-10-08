@@ -46,6 +46,11 @@ img.saltgrass {
 	margin-right: 0;
 }
 
+/* saltgrass after breadcrumbs */
+ul + img.saltgrass {
+	margin-top: 0;
+}
+
 .breadcrumb {
 	background-color: #00004008;
 	margin-top: 1em;
