@@ -1,0 +1,704 @@
+<!doctype html>
+<title>Melbourne train frequency widget</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@87.5..100,400..600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<style>
+body {
+  background: var(--bs-secondary);
+  font-family: "Open Sans", "Arial Narrow", sans-serif;
+  font-variation-settings: "wdth" 87.5;
+}
+.container-md {
+  background: white;
+  box-shadow: 0 0 0 1em white;
+  width: 675px !important;
+  padding-bottom: 2em; /* add space at bottom so that popovers low down on the page can be shown */
+}
+
+h1 {
+  font-size: 2rem;
+}
+.top-panel {
+  z-index: 5000;
+  min-width: 650px;
+}
+.top-controls {
+  margin-left: calc(var(--bs-gutter-x) * -.5 - 1em);
+  margin-right: calc(var(--bs-gutter-x) * -.5 - 1em);
+  padding-left: calc(var(--bs-gutter-x) * .5 + 1em);
+  padding-right: calc(var(--bs-gutter-x) * .5 + 1em);
+  display: flex;
+  row-gap: 1em;
+  column-gap: 2.5em;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.top-controls > div {
+  flex-shrink: 0;
+}
+
+/* Form styles */
+.form-range::-webkit-slider-thumb {
+  background-color: var(--bs-dark);
+}
+.form-range::-webkit-slider-thumb:active {
+  background-color: var(--bs-secondary);
+}
+
+/* Legend styles */
+.legend td {
+  width: 1.8em;
+  height: 1.4em;
+  text-align: center;
+  padding: 0 4px;
+  white-space: nowrap;
+}
+.legend-swatch.legend-hover {
+  outline: 2px black solid;
+}
+.legend-hover {
+  font-weight: bold;
+  color: black;
+}
+.symbol-legend ul, .symbol-legend li, .year-caption {
+  display: block;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2em;
+}
+li > b {
+  display: inline-block;
+  width: 1ex;
+}
+
+/* Frequency table styles */
+table.frequency {
+  border-collapse: collapse;
+  background-image: url(back.svg);
+  background-repeat: repeat-y;
+  background-position: 172px;
+  user-select: none;
+}
+table.frequency.back-long {
+  background-image: url(back-long.svg);
+}
+.frequency > thead > tr:nth-child(1) > td {
+  background: white;
+  text-align: center;
+  line-height: 1.5rem;
+}
+.frequency > thead > tr:nth-child(2) > td {
+  background: white;
+  text-align: center;
+  letter-spacing: -1px;
+}
+.frequency td, .frequency th {
+  width: 5px;
+  min-width: 5px;
+  max-width: 5px;
+  height: 6px;
+  padding: 0 2.5px;
+  white-space: nowrap;
+  line-height: 1.2em;
+  border-color: transparent;
+}
+.frequency td:first-child, .frequency th:first-child {
+  border-left-width: 8px;
+}
+.frequency .spacer-2 {
+  height: 1lh;
+}
+.frequency .spacer-header {
+  height: 0.67lh;
+}
+.frequency .spacer-header-tiny {
+  visibility: hidden;
+}
+.frequency td > span {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.frequency th {
+  width: 172px;
+  min-width: 172px;
+  max-width: 172px;
+  text-align: right;
+  font-weight: normal;
+}
+.frequency .line-title > td {  /* used in line view only */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-variation-settings: "wdth" 100;
+  padding-left: 4px;
+}
+.frequency div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 3px;
+  overflow: hidden;
+}
+.frequency div > span {
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Cell styles - colors and borders */
+.c { cursor: default; }
+.c4 { background-color: #feebe2; }
+.c5 { background-color: #fcc5c0; }
+.c6 { background-color: #fa9fb5; }
+.c7 { background-color: #f768a1; color: whitesmoke; }
+.c8 { background-color: #c51b8a; color: whitesmoke; }
+.c9 { background-color: #7a0177; color: whitesmoke; }
+/*
+.c4 { background-color: #c9f0ec; }
+.c5 { background-color: #9cdfb8; }
+.c6 { background-color: #74c271; }
+.c7 { background-color: #f28155; color: whitesmoke; }
+.c8 { background-color: #ef3242; color: whitesmoke; }
+.c9 { background-color: #830053; color: whitesmoke; }
+*/
+.c0 { background-color: #d9d9d9; }
+
+.bl::before, .br + td::before {
+  display: inline-block;
+  content: "";
+  width: 1px;
+  height: 100%;
+  position: relative;
+  left: -2.5px;
+  vertical-align: top;
+  background-color: black;
+}
+.bl.c7::before, .br + td.c7::before {
+  background-color: whitesmoke;
+}
+
+d {
+  font-size: 90%;
+  opacity: 0.9;
+}
+
+/* Popup notes */
+.popover {
+  font-family: inherit !important;
+  box-shadow: 3px 3px 8px 2px rgba(0,0,0,0.1);
+  z-index: 5555;
+}
+
+/* Modal */
+.modal-backdrop { z-index: 5999; }
+.modal {
+  z-index: 6000;
+  --bs-modal-width: 550px;
+}
+</style>
+<div class="container-md">
+  <h1 class="mt-3 mb-0">Melbourne train service frequency over time</h1>
+  <p>
+    By <a href="https://atfot.wordpress.com/">Alan Thomas</a> &bull;
+    <a href="#" data-bs-toggle="modal" data-bs-target="#how-to-read">How to read this diagram</a> &bull;
+    <a href="#" data-bs-toggle="modal" data-bs-target="#data-sources">Data sources</a>
+  </p>
+  <div class="top-panel position-sticky top-0 bg-body border-bottom">
+    <div class="top-controls bg-light px-3 pt-3">
+      <div>
+        View:
+        <div class="btn-group align-baseline">
+          <input type="radio" class="btn-check" name="view" value="year" id="view-1" autocomplete="off">
+          <label class="btn btn-outline-dark" for="view-1">One year</label>
+        
+          <input type="radio" class="btn-check" name="view" value="line" id="view-2" autocomplete="off" checked>
+          <label class="btn btn-outline-dark" for="view-2">All years</label>
+        </div>
+      </div>
+      <div>
+        Timetable:
+        <div class="btn-group align-baseline">
+          <input type="radio" class="btn-check" name="tt" value="weekday" id="tt-1" autocomplete="off" checked>
+          <label class="btn btn-outline-dark" for="tt-1">Weekday</label>
+        
+          <input type="radio" class="btn-check" name="tt" value="saturday" id="tt-2" autocomplete="off">
+          <label class="btn btn-outline-dark" for="tt-2">Saturday</label>
+        
+          <input type="radio" class="btn-check" name="tt" value="sunday" id="tt-3" autocomplete="off">
+          <label class="btn btn-outline-dark" for="tt-3">Sunday</label>
+        </div>
+      </div>
+      <div class="year-view-only">
+        <label for="year" class="form-label">Year:</label>
+        <input type="range" class="form-range color-dark h-auto" min="0" max="0" id="year" value="0">
+        <span id="year-readout" class="fw-bold">1974</span>
+      </div>
+      <div class="year-view-only year-caption">
+        To quickly compare years, click the "year" slider<br> and use left and right arrow keys
+      </div>
+    </div> 
+    <div class="top-controls bg-light p-3 mb-1">
+      <div>
+        <table class="legend">
+          <tr>
+            <td>Trains every...</td>
+            <td class="c0-legend">60</td>
+            <td class="c4-legend">40</td>
+            <td class="c5-legend">30</td>
+            <td class="c6-legend">20</td>
+            <td class="c7-legend">15</td>
+            <td class="c8-legend">10</td>
+            <td class="c9-legend">5</td>
+            <td>minutes</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="c0 c0-legend legend-swatch"></td>
+            <td class="c4 c4-legend legend-swatch"></td>
+            <td class="c5 c5-legend legend-swatch"></td>
+            <td class="c6 c6-legend legend-swatch"></td>
+            <td class="c7 c7-legend legend-swatch"></td>
+            <td class="c8 c8-legend legend-swatch"></td>
+            <td class="c9 c9-legend legend-swatch"></td>
+            <td class="small text-start text-secondary">(approx)</td>
+          </tr>
+        </table>
+      </div>
+      <div class="symbol-legend align-top small">
+        <ul>
+          <li><b>S</b> Shuttle services
+          <li><b>T</b> Alternating shuttle/through
+          <li><b>*</b> At least one short working
+        </ul>
+      </div>
+    </div>
+    <table class="frequency">
+      <thead>
+        <tr class="small">
+          <th></th>
+          <td colspan="4" class="show-long-only"></td>
+          <td colspan="36">Inbound, arrives City</td>
+          <td colspan="44">Outbound, departs City</td>
+          <td colspan="999"></td>
+        </tr>
+        <tr>
+          <th>Time of day (am / <b>pm</b>)</th>
+          <td colspan="4">4</td>
+          <td colspan="4">5</td>
+          <td colspan="4">6</td>
+          <td colspan="4">7</td>
+          <td colspan="4">8</td>
+          <td colspan="4">9</td>
+          <td colspan="4">10</td>
+          <td colspan="4">11</td>
+          <td colspan="4" class="fw-bold">12</td>
+          <td colspan="4" class="fw-bold">1</td>
+          <td colspan="4" class="fw-bold">2</td>
+          <td colspan="4" class="fw-bold">3</td>
+          <td colspan="4" class="fw-bold">4</td>
+          <td colspan="4" class="fw-bold">5</td>
+          <td colspan="4" class="fw-bold">6</td>
+          <td colspan="4" class="fw-bold">7</td>
+          <td colspan="4" class="fw-bold">8</td>
+          <td colspan="4" class="fw-bold">9</td>
+          <td colspan="4" class="fw-bold">10</td>
+          <td colspan="4" class="fw-bold">11</td>
+          <td colspan="4">12</td>
+          <td colspan="4">1</td>
+          <td colspan="4" class="back-long-only">2</td>
+          <td colspan="4" class="back-long-only">3</td>
+        </tr>
+        <tr class="spacer-header">
+          <th></th>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <table class="frequency">
+    <thead>
+      <tr class="spacer-header-tiny">
+        <th></th>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+<div class="modal" id="how-to-read" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h4>How to read this visualisation</h4>
+        <p>
+          This visualisation shows <b>how often trains ran</b> across Melbourne's train network at
+          various haphazardly chosen points in time, from the 1930s to today.
+        </p>
+        <p>
+          It's intended to paint a <b>representative picture of 
+          service patterns</b> on each line. For fully comprehensive details, please consult the
+          <a href="#" data-bs-toggle="modal" data-bs-target="#data-sources">timetables themselves</a>.
+        </p>
+        <hr>
+        <p>
+          The table shows how often trains <b>arrive in the City</b> from a particular line or station
+          before 1pm (the cutoff time is 11am for pre-1980 Saturday timetables). After that time, it shows how often trains <b>depart the City</b> for that station.
+        </p>
+        <p>
+          The time of arrival/departure is measured at the <b>"city cordon" station</b> (Jolimont, Richmond or
+          North Melbourne), except for pre-1980s timetables, when service frequency is measured at Flinders Street or
+          Princes Bridge, and V/Line services, where it is measured at Spencer Street/Southern Cross.
+        </p>
+        <p>
+          <b>Shuttle services</b> are measured according to the time their <b>connecting service
+          to/from the City</b> stops at the relevant "city cordon" station.
+        </p>
+        <hr>
+        <p>
+          The service frequencies shown in this visualisation are <b>approximate only</b>, rounded to the nearest time interval.
+          It is challenging to determine the exact service frequency when:
+        </p>
+        <ul>
+          <li>Gaps between services are inconsistent (e.g. a 3-minute gap is followed by a 12-minute gap, then a 7-minute gap, and so on)</li>
+          <li>There is a mixture of express and stopping-all-stations trains that take different amounts of time to reach their destination</li>
+        </ul>
+        <p>
+          In these cases I have made a human judgment about which frequency band best
+          reflects the service frequency experienced by passengers.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="data-sources" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h4>Data sources</h4>
+        <p><b>1939 and 1974:</b>
+          <a href="https://www.victorianrailways.net/timetables/tthome.html" target="_blank">victorianrailways.net</a>
+        </p>
+        <p><b>1990:</b> 
+          <a href="https://sites.google.com/site/krustyklo/" target="_blank">KrustyLink</a> (the sub-sites for each route are only accessible through the Wayback Machine) and 
+          the <a href="https://1drv.ms/b/s!AgVQREFh7Ve-jssjukjpy1eGuRsv4w" target="_blank">V/Line Master Train Plan, August 1991</a></p>
+        <p><b>2005:</b>
+          Wayback Machine archives of the 
+          <a href="https://web.archive.org/web/20050303001234/http://www.connexmelbourne.com.au/trip_timetable/index.asp" target="_blank">Connex Melbourne</a>
+          and V/Line Passenger
+          (<a href="https://web.archive.org/web/20050225011646/http://www.vlinepassenger.com.au/times_west.html" target="_blank">West</a> /
+          <a href="https://web.archive.org/web/20050307012029/http://www.vlinepassenger.com.au/times_nth_bendigo.html" target="_blank">North via Bendigo</a>)
+          websites
+        </p>
+        <p><b>2014 onwards:</b>
+          my own <a href="https://1drv.ms/f/s!AgVQREFh7Ve-kutyLCZmNe5nglWS2g?e=Jrp1HY">archives</a>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+"use strict";
+
+// human-readable line titles for line view
+const humanLineNames = {
+  'WTG-DBN stoppers': 'Westgarth–Darebin, stopping all stations',
+  'ECM-CHM stoppers': 'East C\'well–Chatham, stopping all stations',
+  'GHY-SOU stoppers': 'Glen Huntly–Southland, stopping all stations',
+  'SEN-SPT stoppers': 'Seddon–Spotswood, stopping all stations',
+  'Metro Tunnel': 'Oakleigh / Metro Tunnel core',
+};
+
+// full data downloaded from server (JSON object)
+let data;
+// array of years available 
+let years;
+// set of created Bootstrap popover objects
+let popovers = [];
+
+async function load() {
+  // set up page event listeners
+  document.body.addEventListener('touchstart', dataCellClearAllHovers);
+
+  // set up control event listeners
+  for (let el of document.querySelectorAll('input[name=view], input[name=tt]')) {
+    el.addEventListener('change', update);
+  }
+
+  // load JSON data
+  data = await (await fetch('data.json')).json();
+  years = Object.keys(data);
+  update();
+
+  // set up range control based on the years in the data
+  const range = document.getElementById('year');
+  range.setAttribute('max', years.length - 1);
+  range.style.width = ((years.length - 1) * 2.5) + 'em';
+  range.value = years.length - 2; /* TODO reset back to 1 when MMRT opens */
+  range.addEventListener('input', update);
+}
+
+function update() {
+  if (!data) {
+    return;
+  }
+
+  // close all popovers
+  for (const popover of popovers) {
+    popover.dispose();
+  }
+  popovers = [];
+
+  // which view are we in?
+  const view = document.querySelector('input[name=view]:checked').value;
+  const tt = document.querySelector('input[name=tt]:checked').value;
+
+  // show or hide relevant form controls
+  for (const el of document.querySelectorAll('.year-view-only')) {
+    el.classList.toggle('d-inline-block', (view === 'year'));
+    el.classList.toggle('d-none', (view !== 'year'));
+  }
+
+  // render the view
+  if (view === 'year') {
+    showYearView(tt);
+  } else {
+    showLineView(tt);
+  }
+}
+
+function showYearView(tt) {
+  // get chosen form element values
+  const year = years[document.getElementById('year').value];
+  document.getElementById('year-readout').textContent = year.toString().slice(-4);
+
+  // which year's data do we want?
+  const yearData = data[year];
+
+  // If post-1am trains are in place, use back-long class;
+  // otherwise remove it
+  setBackLong(Number(year) >= 2014 && tt === 'saturday');
+
+  // populate the table
+  const tbody = document.querySelector('.frequency tbody');
+  tbody.textContent = '';
+  for (const line of Object.keys(yearData)) {
+    if (yearData[line].spacerType) {
+      // spacer row
+      addSpacerRow(tbody,
+        yearData[line].color,
+        yearData[line].spacerType);
+    } else {
+      // data row
+      addDataRow(tbody,
+        yearData[line].color,
+        line,
+        yearData[line][tt],
+        yearData[line][tt + '-note']);
+    }
+  }
+
+  // finish with a spacer row
+  addSpacerRow(tbody, null, 2);
+}
+
+function showLineView(tt) {
+  // the final year available is considered the "master" year;
+  // get its keys (line names)
+  const lastYearData = data[years[years.length - 1]];
+  const lastYearKeys = Object.keys(lastYearData);
+
+  // If the Night Network is in place, use back-long class;
+  // otherwise remove it
+  setBackLong(tt === 'saturday');
+
+  // clear table and add initial spacer row
+  const tbody = document.querySelector('.frequency tbody');
+  tbody.textContent = '';
+  addSpacerRow(tbody, null, 2);
+
+  // get the key at the SAME POSITION in the JSON for each of the other years,
+  // and populate the table
+  for (const [position, line] of Object.entries(lastYearKeys)) {
+    // ignore spacers
+    if (lastYearData[line].spacerType) {
+      continue;
+    }
+
+    // add a row with the name of this line
+    const tr_linename = document.createElement('tr');
+    tr_linename.className = 'line-title';
+    tr_linename.innerHTML = '<th></th><td colspan="2"></td>' +
+      '<td colspan="999">' + (humanLineNames[line.trim()] || line) + '</td>';
+    tbody.appendChild(tr_linename);
+
+    for (let year of Object.keys(data)) {
+      // find the data corresponding to this position
+      const thisYearKeys = Object.keys(data[year]);
+      let thisLineThisYear = thisYearKeys[position]
+
+      // SPECIAL CASE for Altona Loop (placed next to Williamstown prior to
+      // Werribee electrification, and next to Werribee afterwards)
+      if (line === 'Altona Loop' && (year === '1939' || year === '1974')) {
+        thisLineThisYear = 'Altona';
+      }
+
+      const thisLineThisYearData = data[year][thisLineThisYear]; 
+
+      // SPECIAL CASE for certain years that differ from the headline year
+      if (line === 'Werribee' && year === '1974') {
+        year = '1975';
+      }
+      if (
+        (line === 'Melton/Caroline Springs' || line === 'Melton' || line === 'Tarneit') &&
+        year === '2014'
+      ) {
+        year = '2015';
+      }
+      
+      // add a data row, falling back to an empty row if not defined
+      if (thisLineThisYearData.spacerType) {
+        addDataRow(tbody,
+          thisLineThisYearData.color,
+          '<b>' + year + '</b>', '');
+      } else {
+        addDataRow(tbody,
+          thisLineThisYearData.color, 
+          '<span>' + thisLineThisYear + '</span><b> ' + year + '</b>', 
+          thisLineThisYearData[tt],
+          thisLineThisYearData[tt + '-note']);
+      }
+      
+      // add a space after 1990
+      if (year === '2005') {
+        //addSpacerRow(tbody, thisLineThisYearData.color, 1);
+      }
+    }
+
+    // finish with a spacer row
+    addSpacerRow(tbody, null, 2);
+  }
+}
+
+function addSpacerRow(tbody, color, classCode) {
+  const tr_space = document.createElement('tr');
+  tr_space.innerHTML = '<td class="spacer-' + classCode + '" ' +
+    'style="border-left-color: ' + (color || 'transparent') + '"></td>';
+  tbody.appendChild(tr_space);
+}
+
+function addDataRow(tbody, color, header, data, note) {
+  // construct note, if any
+  const noteIcon = note ? (
+    '<img class="align-baseline" src="info.svg" ' +
+    'alt="Click or hover for note" width="15" height="15"> '
+  ) : '';
+  const noteAttribs = note ? (
+    // TODO make this work on mobile!
+    ' data-bs-trigger="hover" data-bs-content="' + note + '"'
+  ) : '';
+
+  const tr_data = document.createElement('tr');
+  tr_data.innerHTML = '<th style="border-left: 8px solid ' + color + '"' + noteAttribs + '>' +
+    '<div>' + noteIcon + header + '</div></th><td></td><td></td>' + data + '<td></td>';
+  tbody.appendChild(tr_data);
+
+  // set up hover-legend-colour interactivity and mouse cursor
+  for (const td of tr_data.querySelectorAll('td.c0, td.c4, td.c5, td.c6, td.c7, td.c8, td.c9')) {
+    td.addEventListener('mouseenter', dataCellPointerEnterOrLeave.bind(null, true));
+    td.addEventListener('mouseleave', dataCellPointerEnterOrLeave.bind(null, false));
+    td.addEventListener('touchstart', dataCellPointerEnterOrLeave.bind(null, true));
+  }
+
+  // set up note interactivity
+  popovers.push(new bootstrap.Popover(tr_data.firstElementChild));
+}
+
+function setBackLong(isLong) {
+  for (const el of document.querySelectorAll('.frequency')) {
+    el.classList.toggle('back-long', isLong);
+  }
+  for (const el of document.querySelectorAll('.back-long-only')) {
+    el.classList.toggle('d-none', !isLong);
+  }
+}
+
+function dataCellPointerEnterOrLeave(isPointerOver, e) {
+  // does this have a cN class? If so, draw a box around
+  // the relevant legend cell
+  for (const className of e.target.classList) {
+    if (className.startsWith('c')) {
+      for (const legendEl of document.querySelectorAll('.' + className + '-legend')) {
+        legendEl.classList.toggle('legend-hover', isPointerOver);
+      }
+    }
+  }
+  e.cancelBubble = true;
+}
+
+function dataCellClearAllHovers() {
+  for (const el of document.querySelectorAll('.legend-hover')) {
+    el.classList.remove('legend-hover');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', load);
+
+</script>
