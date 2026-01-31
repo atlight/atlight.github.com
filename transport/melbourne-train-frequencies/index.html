@@ -57,7 +57,7 @@ h1 {
   padding: 0 4px;
   white-space: nowrap;
 }
-.legend-swatch.legend-hover {
+.legend-swatch.legend-hover, .c.legend-hover {
   outline: 2px black solid;
 }
 .legend-hover {
@@ -688,6 +688,7 @@ function dataCellPointerEnterOrLeave(isPointerOver, e) {
       for (const legendEl of document.querySelectorAll('.' + className + '-legend')) {
         legendEl.classList.toggle('legend-hover', isPointerOver);
       }
+      e.target.classList.toggle('legend-hover', isPointerOver);
     }
   }
   e.cancelBubble = true;
