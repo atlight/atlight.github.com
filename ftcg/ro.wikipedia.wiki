@@ -1,0 +1,92 @@
+﻿# For the Common Good
+# Local wiki data for Romanian Wikipedia
+
+LocalDomain=ro.wikipedia
+
+LocalFtcgPage=w:en:WP:FTCG
+
+Category1=De copiat la Wikimedia Commons
+Category2=Imagini din domeniul public
+Category3=Imagini GFDL
+DefaultCategory=1
+
+NowCommonsTag=Now Commons
+
+# The deletion summary used when deleting a file after transfer (option available
+# to admins only) - link to a relevant deletion policy if possible
+NowCommonsDeletionSummary=[[WP:CȘR#F8|F8]]: Fișier disponibil la [[:C:|Commons]]
+
+# Some edit summaries to translate into your wiki's language
+NowCommonsAddingTagEditSummary=Adăugat {{now Commons}} 
+NowCommonsReplacingTagEditSummary=Înlocuit formatul {{TLC}} cu {{now Commons}} 
+
+Information=Informații
+Description=Descriere
+Date=Data
+Source=Sursa
+Author=Autor
+Permission=Permisiune
+Other_versions=alte_versiuni
+
+Summary=Descriere|Descriere fișier
+Licensing=Licențiere|Licență
+
+CategoryNamespace=Categorie
+
+CopyToCommonsRegex={{(Transferabil la Commons|TLC|Copy to Wikimedia Commons|Transferabil la commons|MoveToCommons|mtc|tlc)[^}]*}}\n?
+
+[PotentialProblem]
+IfRegex={{(db\-|șr\-|șterge|deșters|delete|speedy)
+Message=Se pare că fișierul este propus spre ștergere.
+
+[PotentialProblem]
+IfContains={{di-
+Message=Fișierul este etichetat pentru ștergere.
+
+[PotentialProblem]
+IfContains={{Do not move to Commons
+Message=Nu se recomandă transferul la Commons.
+
+[PotentialProblem]
+IfRegex=\{\{\s*(Deleted on|Șters la|From)\s*Commons.*
+Message=Fișierul este etichetat cu {{Șters la Commons}}. Verificați jurnalul ștergerilor la Commons înainte de transfer.
+
+[PotentialProblem]
+IfContains={{Justificare UC
+Message=Fișierele nelibere nu sunt admise la Commons.
+
+[PotentialProblem]
+IfRegex=\{\{\s*Utilizare\s*cinstit
+Message=Fișierele nelibere nu sunt admise la Commons.
+
+[PotentialProblem]
+IfRegex=\{\{\s*(Copertă|Afiș|JUC|Logo|Fair\s*use)
+Message=Fișierele nelibere nu sunt admise la Commons.
+
+[PotentialProblem]
+IfContains={{non-free
+Message=Fișierele nelibere nu sunt admise la Commons.
+
+[PotentialProblem]
+IfContains={{FOP
+Message=Nu se recomandă transferul din cauza lipsei [[:C:COM:FOP|libertății de panoramă]].
+
+[Replacement]
+LookFor== *(Fotografie|lucrare|operă) proprie *
+ReplaceWith== {{own work by original uploader}}
+
+[Replacement]
+LookFor== *self\-made *
+ReplaceWith== {{own work by original uploader}}
+
+[SelfLicenseReplacement]
+LookFor={{(DP-personal|PD-self|DP-utilizator|PD-user)([^\}]*)}}
+ReplaceWith={{PD-user-w|project=wikipedia|language=ro|user=%%OriginalUploader%%}}
+
+[SelfLicenseReplacement]
+LookFor={{GFDL-self([^\}]*)}}
+ReplaceWith={{GFDL-user|%%OriginalUploader%%|b$1}}
+
+[SelfLicenseReplacement]
+LookFor={{self([^\}]*)}}
+ReplaceWith={{self$1|author=[[%%InterwikiLinkPrefix%%:%%OriginalUploader%%|]]}}
