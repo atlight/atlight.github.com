@@ -2,8 +2,8 @@ import openpyxl
 from openpyxl.cell.cell import MergedCell
 import json
 
-# filename = r"C:\Users\athomas3\Personal\OneDrive\Rail\Frequencies.xlsx"
-filename = r"C:\Users\Alan Thomas\OneDrive\Rail\Frequencies.xlsx"
+filename = r"C:\Users\athomas3\Personal\OneDrive\Rail\Frequencies.xlsx"
+# filename = r"C:\Users\Alan Thomas\OneDrive\Rail\Frequencies.xlsx"
 
 # Load the workbook
 wb = openpyxl.load_workbook(filename)
@@ -12,7 +12,7 @@ wb = openpyxl.load_workbook(filename)
 data = dict()
 
 # Go through relevant sheets
-for year in ['1939', '1974', '1990', '2005', '2014', '2023', 'Feb 2026']:
+for year in ['1939', '1974', '1990', '2005', '2014', '2023', '2026']:
   sheet = wb[year]
 
   data[year] = dict()

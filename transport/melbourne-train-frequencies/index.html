@@ -206,7 +206,8 @@ d {
   <p>
     By <a href="https://atfot.wordpress.com/">Alan Thomas</a> &bull;
     <a href="#" data-bs-toggle="modal" data-bs-target="#how-to-read">How to read this diagram</a> &bull;
-    <a href="#" data-bs-toggle="modal" data-bs-target="#data-sources">Data sources</a>
+    <a href="#" data-bs-toggle="modal" data-bs-target="#data-sources">Data sources</a> &bull;
+    <b>Updated August 2026</b>
   </p>
   <div class="top-panel position-sticky top-0 bg-body border-bottom">
     <div class="top-controls bg-light px-3 pt-3">
@@ -491,7 +492,7 @@ async function load() {
   const range = document.getElementById('year');
   range.setAttribute('max', years.length - 1);
   range.style.width = ((years.length - 1) * 2.5) + 'em';
-  range.value = years.length - 2; /* TODO reset back to 1 when MMRT opens */
+  range.value = years.length - 1;
   range.addEventListener('input', update);
 }
 
